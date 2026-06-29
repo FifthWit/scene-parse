@@ -1,58 +1,74 @@
-import type { LanguageCode } from "jsr:@hongminhee/iso639-1";
+import type { LanguageCode } from "@hongminhee/iso639-1";
 import type {
-  VIDEO_QUALITY_MAP,
-  CODEC_DEFS,
   SOURCE_MAP,
   HDR_TYPES_MAP,
+  RIP_QUALITIES,
+  EDITION_MAP,
 } from "../lib/core.ts";
 
 type HDRType = keyof typeof HDR_TYPES_MAP;
-type VideoCodec = (typeof CODEC_DEFS.video)[number]["name"];
-type AudioCodec = (typeof CODEC_DEFS.audio)[number]["name"];
-type Codec = VideoCodec | AudioCodec;
-
-type ExtractCodec<Name extends Codec> =
-  | Extract<(typeof CODEC_DEFS.video)[number], { name: Name }>
-  | Extract<(typeof CODEC_DEFS.audio)[number], { name: Name }>;
-
-type VideoQuality = keyof typeof VIDEO_QUALITY_MAP;
-
 type ReleaseSource = keyof typeof SOURCE_MAP;
+type EditionType = keyof typeof EDITION_MAP;
+
+type MediaQualityInfo = {
+  readonly width: number;
+  readonly height: number;
+  readonly full: string;
+  readonly aspectRatio: string;
+};
+
+type MediaCodecInfo = {
+  readonly name: string;
+  readonly aliases: readonly string[];
+  readonly codecType: "video" | "audio";
+  readonly foss: boolean;
+  readonly lossy: boolean;
+};
 
 type MediaInfo = {
   video: {
-    quality: (typeof VIDEO_QUALITY_MAP)[VideoQuality];
-    codec: ExtractCodec<VideoCodec>;
-    HDR: boolean;
+    quality: MediaQualityInfo;
+    codec: MediaCodecInfo;
+    HDR: HDRType;
+    is3D?: boolean;
   };
   audio: {
-    codec: ExtractCodec<AudioCodec>;
-    lang: LanguageCode | undefined;
+    codec: MediaCodecInfo;
+    lang?: LanguageCode;
+    channels?: string;
+    isAtmos?: boolean;
+    isDual?: boolean;
   };
 };
 
-type RipQuality = "SD-TV" | "WEB-DL" | "WEBRip" | "DVD" | "HD-TV" | "Bluray";
-
-type ReleaseType = "show" | "movie";
+type RipQuality = (typeof RIP_QUALITIES)[number];
 
 type ReleaseInfoBase = {
   title: string;
   source: ReleaseSource;
   ripQuality: RipQuality;
   mediaInfo: MediaInfo;
-  group: string | undefined;
+  group?: string;
+  year?: number;
+  edition?: EditionType;
+  isRemux?: boolean;
+  isRepack?: boolean;
+  isProper?: boolean;
+  isInternal?: boolean;
 };
 
 type ReleaseInfoShowEpisode = {
   type: "show";
   season: number;
-  episode: number;
+  episode: number | null;
+  episodes: number[];
 } & ReleaseInfoBase;
 
 type ReleaseInfoShowSeasonPack = {
   type: "show";
   season: number;
   episode: null;
+  episodes: [];
 } & ReleaseInfoBase;
 
 type ReleaseInfoMovie = {
@@ -64,13 +80,54 @@ type ReleaseInfo =
   | ReleaseInfoShowSeasonPack
   | ReleaseInfoMovie;
 
+type ParseResult = ReleaseInfo & {
+  warnings: string[];
+};
+
+type ShowPackInfoBase = {
+  title: string;
+  source: ReleaseSource;
+  ripQuality: RipQuality;
+  mediaInfo: MediaInfo;
+  group?: string;
+  year?: number;
+  edition?: EditionType;
+};
+
+type SeasonPack = ShowPackInfoBase & {
+  type: "season-pack";
+  seasons: number[];
+};
+
+type EpisodeRangePack = ShowPackInfoBase & {
+  type: "episode-range";
+  season: number;
+  episodes: number[];
+};
+
+type CompleteSeriesPack = ShowPackInfoBase & {
+  type: "complete-series";
+};
+
+type ShowPackInfo = SeasonPack | EpisodeRangePack | CompleteSeriesPack;
+
 export type {
   MediaInfo,
-  Codec,
-  VideoCodec,
-  AudioCodec,
-  ExtractCodec,
+  MediaQualityInfo,
+  MediaCodecInfo,
   ReleaseInfo,
+  ReleaseInfoBase,
   ReleaseSource,
   RipQuality,
+  HDRType,
+  EditionType,
+  ReleaseInfoShowEpisode,
+  ReleaseInfoShowSeasonPack,
+  ReleaseInfoMovie,
+  ParseResult,
+  ShowPackInfo,
+  ShowPackInfoBase,
+  SeasonPack,
+  EpisodeRangePack,
+  CompleteSeriesPack,
 };

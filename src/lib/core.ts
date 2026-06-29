@@ -1,187 +1,65 @@
-export const CODEC_DEFS = {
-  video: [
-    {
-      name: "h264",
-      aliases: ["x264"] as string[],
-      codecType: "video",
-      foss: false,
-      lossy: true,
-    },
-    {
-      name: "h265",
-      aliases: ["x265"] as string[],
-      codecType: "video",
-      foss: false,
-      lossy: true,
-    },
-    {
-      name: "av1",
-      aliases: [] as string[],
-      codecType: "video",
-      foss: true,
-      lossy: true,
-    },
-    {
-      name: "vp9",
-      aliases: [] as string[],
-      codecType: "video",
-      foss: true,
-      lossy: true,
-    },
-    {
-      name: "ProRes",
-      aliases: [] as string[],
-      codecType: "video",
-      foss: false,
-      lossy: false,
-    },
-  ],
-  audio: [
-    {
-      name: "aac",
-      aliases: [] as string[],
-      codecType: "audio",
-      foss: false,
-      lossy: true,
-    },
-    {
-      name: "opus",
-      aliases: [] as string[],
-      codecType: "audio",
-      foss: true,
-      lossy: true,
-    },
-    {
-      name: "mp3",
-      aliases: [] as string[],
-      codecType: "audio",
-      foss: true,
-      lossy: true,
-    },
-    {
-      name: "ac3",
-      aliases: ["AC-3", "DD5.1"] as string[],
-      codecType: "audio",
-      foss: false,
-      lossy: true,
-    },
-    {
-      name: "eac3",
-      aliases: ["E-AC3"] as string[],
-      codecType: "audio",
-      foss: false,
-      lossy: true,
-    },
-    {
-      name: "ogg",
-      aliases: [] as string[],
-      codecType: "audio",
-      foss: true,
-      lossy: true,
-    },
-    {
-      name: "flac",
-      aliases: [] as string[],
-      codecType: "audio",
-      foss: true,
-      lossy: false,
-    },
-    {
-      name: "alac",
-      aliases: [] as string[],
-      codecType: "audio",
-      foss: true,
-      lossy: false,
-    },
-    {
-      name: "wav",
-      aliases: [] as string[],
-      codecType: "audio",
-      foss: true,
-      lossy: false,
-    },
-  ],
-} as const;
+export {
+  CODEC_DEFS,
+  getCodecByName,
+  getCodecByAlias,
+  getCodecInfo,
+  listCodecs,
+  listVideoCodecNames,
+  listAudioCodecNames,
+} from "./codecs.ts";
+export type {
+  CodecType,
+  VideoCodecDef,
+  AudioCodecDef,
+  CodecDef,
+} from "./codecs.ts";
 
-export const VIDEO_QUALITY_MAP = {
-  "144p": { width: 256, height: 144, full: "256x144", aspectRatio: "16:9" },
-  "360p": { width: 640, height: 360, full: "640x360", aspectRatio: "16:9" },
-  "480p": { width: 854, height: 480, full: "854x480", aspectRatio: "16:9" },
-  "720p": { width: 1280, height: 720, full: "1280x720", aspectRatio: "16:9" },
-  "1080p": {
-    width: 1920,
-    height: 1080,
-    full: "1920x1080",
-    aspectRatio: "16:9",
-  },
-  "1440p": {
-    width: 2560,
-    height: 1440,
-    full: "2560x1440",
-    aspectRatio: "16:9",
-  },
-  "2160p": {
-    width: 3840,
-    height: 2160,
-    full: "3840x2160",
-    aspectRatio: "16:9",
-  },
-} as const;
+export {
+  VIDEO_QUALITY_MAP,
+  getQualityInfo,
+  listQualities,
+} from "./qualities.ts";
+export type { VideoQuality, VideoQualityInfo } from "./qualities.ts";
 
-export const SOURCE_MAP = {
-  NF: { shorthand: "NF", full: "Netflix" },
-  AMZN: { shorthand: "AMZN", full: "Amazon Prime Video" },
-  DSNP: { shorthand: "DSNP", full: "Disney+" },
-  HULU: { shorthand: "HULU", full: "Hulu" },
-  MAX: { shorthand: "MAX", full: "Max" },
-  ATVP: { shorthand: "ATVP", full: "Apple TV+" },
-  PMTP: { shorthand: "PMTP", full: "Paramount+" },
-  PCOK: { shorthand: "PCOK", full: "Peacock" },
-  YT: { shorthand: "YT", full: "YouTube" },
-  CR: { shorthand: "CR", full: "Crunchyroll" },
-  FUNI: { shorthand: "FUNI", full: "Funimation" },
-  TUBI: { shorthand: "TUBI", full: "Tubi" },
-  PLUTO: { shorthand: "PLUTO", full: "Pluto TV" },
-  ROKU: { shorthand: "ROKU", full: "The Roku Channel" },
-  DSCP: { shorthand: "DSCP", full: "Discovery+" },
-  ESPN: { shorthand: "ESPN", full: "ESPN+" },
-  STARZ: { shorthand: "STARZ", full: "Starz" },
-  SHO: { shorthand: "SHO", full: "Showtime" },
-  AMC: { shorthand: "AMC", full: "AMC+" },
-  SHUD: { shorthand: "SHUD", full: "Shudder" },
-  VUDU: { shorthand: "VUDU", full: "Vudu" },
-  ITUNES: { shorthand: "ITUNES", full: "iTunes" },
-  GP: { shorthand: "GP", full: "Google Play" },
-  MS: { shorthand: "MS", full: "Microsoft Store" },
-  FAND: { shorthand: "FAND", full: "Fandango at Home" },
-  CRACK: { shorthand: "CRACK", full: "Crackle" },
-  PLEX: { shorthand: "PLEX", full: "Plex" },
-  KANOPY: { shorthand: "KANOPY", full: "Kanopy" },
-  HOOPLA: { shorthand: "HOOPLA", full: "Hoopla" },
-  BBC: { shorthand: "BBC", full: "BBC iPlayer" },
-  ITV: { shorthand: "ITV", full: "ITVX" },
-  C4: { shorthand: "C4", full: "Channel 4" },
-  STAN: { shorthand: "STAN", full: "Stan" },
-  BINGE: { shorthand: "BINGE", full: "Binge" },
-  BRIT: { shorthand: "BRIT", full: "BritBox" },
-  ACORN: { shorthand: "ACORN", full: "Acorn TV" },
-  MUBI: { shorthand: "MUBI", full: "Mubi" },
-  CRIT: { shorthand: "CRIT", full: "Criterion Channel" },
-  VIKI: { shorthand: "VIKI", full: "Viki" },
-  HOTSTAR: { shorthand: "HOTSTAR", full: "Disney+ Hotstar" },
-  SONY: { shorthand: "SONY", full: "SonyLIV" },
-  ZEE5: { shorthand: "ZEE5", full: "ZEE5" },
-  YTTV: { shorthand: "YTTV", full: "YouTube TV" },
-  SLING: { shorthand: "SLING", full: "Sling TV" },
-  FUBO: { shorthand: "FUBO", full: "FuboTV" },
-  PHILO: { shorthand: "PHILO", full: "Philo" },
-  DIRECTV: { shorthand: "DIRECTV", full: "DirecTV Stream" },
-  XFINITY: { shorthand: "XFINITY", full: "Xfinity Stream" },
-  SPECTRUM: { shorthand: "SPECTRUM", full: "Spectrum TV" },
-} as const;
+export {
+  SOURCE_MAP,
+  getSourceInfo,
+  getSourceByFullName,
+  listSources,
+  listSourceShorthands,
+} from "./sources.ts";
+export type { ReleaseSource, SourceInfo } from "./sources.ts";
 
-export const HDR_TYPES_MAP = {
-  SDR: { bitDepth: 8 },
-  HDR10: { bitDepth: 10, gamma: "PQ" },
-  DolbyVision: { bitDepth: 12, profile: 5 },
-} as const;
+export {
+  HDR_TYPES_MAP,
+  HDR_PATTERNS,
+  detectHDR,
+  getHDRInfo,
+  listHDRTypes,
+} from "./hdr.ts";
+export type { HDRType, HDRTypeInfo } from "./hdr.ts";
+
+export { BROWSER_CODEC_MATRIX } from "./browser-data.ts";
+export type { BrowserCodecEntry } from "./browser-data.ts";
+
+export {
+  YEAR_PATTERN,
+  EPISODE_PATTERN,
+  MULTI_EPISODE_PATTERN,
+  MULTI_EPISODE_SERIES_PATTERN,
+  SEASON_PATTERN,
+  SEASON_RANGE_PATTERN,
+  REMUX_PATTERN,
+  REPACK_PATTERN,
+  PROPER_PATTERN,
+  INTERNAL_PATTERN,
+  COMPLETE_PATTERN,
+  THREE_D_PATTERN,
+  DUAL_AUDIO_PATTERN,
+  DOLBY_ATMOS_PATTERN,
+  SCENE_GROUP_PATTERN,
+  EDITION_MAP,
+  RIP_QUALITIES,
+  detectEdition,
+} from "./regexps.ts";
+export type { EditionType, RipQuality } from "./regexps.ts";
