@@ -1,7 +1,7 @@
 {
   "name": "@fifth/scene-parser",
   "version": "0.1.1",
-  "license": "GPLv3",
+  "license": "GPL-3.0-or-later",
   "exports": "./mod.ts",
   "tasks": {
     "dev": "deno run --watch --allow-net ./src/index.ts"
