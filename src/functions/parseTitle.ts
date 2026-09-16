@@ -23,11 +23,15 @@ import {
   DOLBY_ATMOS_PATTERN,
   MULTI_EPISODE_PATTERN,
   MULTI_EPISODE_SERIES_PATTERN,
+  SEASON_EPISODE_PATTERN,
+  SEASON_MULTI_EPISODE_PATTERN,
+  SEASON_MULTI_EPISODE_SERIES_PATTERN,
 } from "../lib/core.ts";
 import type { HDRType } from "../lib/core.ts";
 
-const DEFAULT_SOURCE: keyof typeof SOURCE_MAP = "NF";
-const DEFAULT_RIP_QUALITY: (typeof RIP_QUALITIES)[number] = "WEBRip";
+// Tags that name the encoder itself (as opposed to the codec/standard name,
+// e.g. H.264/AVC) imply the release is a re-encode rather than a stream copy.
+const ENCODE_TAGS = new Set(["x264", "x265"]);
 
 const videoCodecMap: Record<string, (typeof CODEC_DEFS.video)[number]> = {};
 const audioCodecMap: Record<string, (typeof CODEC_DEFS.audio)[number]> = {};
@@ -62,12 +66,21 @@ function tryMatchCompoundCodec<T>(
   tokens: string[],
   start: number,
   lookup: Record<string, T>,
-): { codec: T; consumed: number } | null {
+): { codec: T; consumed: number; matched: string } | null {
   for (let len = 1; len <= 3 && start + len <= tokens.length; len++) {
-    const candidate = tokens.slice(start, start + len).join(".");
-    const lower = candidate.toLowerCase();
-    if (lower in lookup) {
-      return { codec: lookup[lower], consumed: len };
+    const slice = tokens.slice(start, start + len);
+    const dotted = slice.join(".").toLowerCase();
+    if (dotted in lookup) {
+      return { codec: lookup[dotted], consumed: len, matched: dotted };
+    }
+    // Titles are split on ".", so a literal dot inside a tag (e.g. "H.264")
+    // ends up split across tokens too ("H", "264"). Try rejoining without a
+    // separator so those still resolve to the underlying codec.
+    if (len > 1) {
+      const joined = slice.join("").toLowerCase();
+      if (joined in lookup) {
+        return { codec: lookup[joined], consumed: len, matched: joined };
+      }
     }
   }
   return null;
@@ -112,6 +125,7 @@ export function parseTitle(title: string): ParseResult {
   let isAtmos: boolean | undefined;
   let isDual: boolean | undefined;
   let channels: string | undefined;
+  let isEncode: boolean | undefined;
 
   const warnings: string[] = [];
   const titleTokens: string[] = [];
@@ -124,6 +138,7 @@ export function parseTitle(title: string): ParseResult {
     const compoundVideo = tryMatchCompoundCodec(tokens, i, videoCodecMap);
     if (compoundVideo) {
       videoCodec = compoundVideo.codec;
+      isEncode = ENCODE_TAGS.has(compoundVideo.matched);
       i += compoundVideo.consumed;
       titleEnded = true;
       continue;
@@ -133,6 +148,45 @@ export function parseTitle(title: string): ParseResult {
       audioCodec = compoundAudio.codec;
       i += compoundAudio.consumed;
       titleEnded = true;
+      continue;
+    }
+
+    const seasonEpisodeSeriesMatch = token.match(
+      SEASON_MULTI_EPISODE_SERIES_PATTERN,
+    );
+    if (seasonEpisodeSeriesMatch) {
+      season = parseInt(seasonEpisodeSeriesMatch[1], 10);
+      const inner = token.match(/E(\d{1,3})/gi) ?? [];
+      episodes = inner.map((m) => parseInt(m.slice(1), 10));
+      episode = episodes[0];
+      type = "show";
+      titleEnded = true;
+      i++;
+      continue;
+    }
+
+    const seasonMultiEpisodeMatch = token.match(SEASON_MULTI_EPISODE_PATTERN);
+    if (seasonMultiEpisodeMatch) {
+      season = parseInt(seasonMultiEpisodeMatch[1], 10);
+      const start = parseInt(seasonMultiEpisodeMatch[2], 10);
+      const end = parseInt(seasonMultiEpisodeMatch[3], 10);
+      episodes = [];
+      for (let ep = start; ep <= end; ep++) episodes.push(ep);
+      episode = start;
+      type = "show";
+      titleEnded = true;
+      i++;
+      continue;
+    }
+
+    const seasonEpisodeMatch = token.match(SEASON_EPISODE_PATTERN);
+    if (seasonEpisodeMatch) {
+      season = parseInt(seasonEpisodeMatch[1], 10);
+      episode = parseInt(seasonEpisodeMatch[2], 10);
+      episodes = [episode];
+      type = "show";
+      titleEnded = true;
+      i++;
       continue;
     }
 
@@ -291,6 +345,7 @@ export function parseTitle(title: string): ParseResult {
     const lowerToken = token.toLowerCase();
     if (lowerToken in videoCodecMap) {
       videoCodec = videoCodecMap[lowerToken];
+      isEncode = ENCODE_TAGS.has(lowerToken);
       titleEnded = true;
       i++;
       continue;
@@ -309,6 +364,7 @@ export function parseTitle(title: string): ParseResult {
 
       if (possibleCodec in videoCodecMap) {
         videoCodec = videoCodecMap[possibleCodec];
+        isEncode = ENCODE_TAGS.has(possibleCodec);
         group = possibleGroup;
         titleEnded = true;
         i++;
@@ -376,6 +432,7 @@ export function parseTitle(title: string): ParseResult {
       },
       HDR: hdr,
       ...(is3D !== undefined ? { is3D } : {}),
+      ...(isEncode !== undefined ? { isEncode } : {}),
     },
     audio: {
       codec: audioCodec ?? {
@@ -394,10 +451,10 @@ export function parseTitle(title: string): ParseResult {
 
   const base = {
     title: titleTokens.join(" "),
-    source: source ?? DEFAULT_SOURCE,
-    ripQuality: ripQuality ?? DEFAULT_RIP_QUALITY,
     mediaInfo,
     group,
+    ...(source !== undefined ? { source } : {}),
+    ...(ripQuality !== undefined ? { ripQuality } : {}),
     ...(year !== undefined ? { year } : {}),
     ...(edition !== undefined ? { edition } : {}),
     ...(isRemux !== undefined ? { isRemux } : {}),

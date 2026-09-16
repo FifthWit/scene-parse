@@ -4,6 +4,10 @@ export const MULTI_EPISODE_PATTERN = /^E(\d{1,3})-E(\d{1,3})$/i;
 export const MULTI_EPISODE_SERIES_PATTERN = /^E(\d{1,3})(E\d{1,3})+$/i;
 export const SEASON_PATTERN = /^S(\d{1,2})$/i;
 export const SEASON_RANGE_PATTERN = /^S(\d{1,2})-S(\d{1,2})$/i;
+export const SEASON_EPISODE_PATTERN = /^S(\d{1,2})E(\d{1,3})$/i;
+export const SEASON_MULTI_EPISODE_PATTERN = /^S(\d{1,2})E(\d{1,3})-E(\d{1,3})$/i;
+export const SEASON_MULTI_EPISODE_SERIES_PATTERN =
+  /^S(\d{1,2})E(\d{1,3})(E\d{1,3})+$/i;
 export const REMUX_PATTERN = /^REMUX$/i;
 export const REPACK_PATTERN = /^REPACK$/i;
 export const PROPER_PATTERN = /^PROPER$/i;

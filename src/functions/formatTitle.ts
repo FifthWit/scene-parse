@@ -46,8 +46,8 @@ export function formatTitle(info: ReleaseInfo, options?: FormatOptions): string 
   const quality = getQualityLabel(info.mediaInfo.video.quality);
   if (quality) parts.push(quality);
 
-  parts.push(info.source);
-  parts.push(info.ripQuality);
+  if (info.source !== undefined) parts.push(info.source);
+  if (info.ripQuality !== undefined) parts.push(info.ripQuality);
 
   const videoCodec = getCodecLabel(info.mediaInfo.video.codec);
   if (videoCodec) parts.push(videoCodec);

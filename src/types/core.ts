@@ -31,6 +31,7 @@ type MediaInfo = {
     codec: MediaCodecInfo;
     HDR: HDRType;
     is3D?: boolean;
+    isEncode?: boolean;
   };
   audio: {
     codec: MediaCodecInfo;
@@ -45,8 +46,8 @@ type RipQuality = (typeof RIP_QUALITIES)[number];
 
 type ReleaseInfoBase = {
   title: string;
-  source: ReleaseSource;
-  ripQuality: RipQuality;
+  source?: ReleaseSource;
+  ripQuality?: RipQuality;
   mediaInfo: MediaInfo;
   group?: string;
   year?: number;
@@ -86,8 +87,8 @@ type ParseResult = ReleaseInfo & {
 
 type ShowPackInfoBase = {
   title: string;
-  source: ReleaseSource;
-  ripQuality: RipQuality;
+  source?: ReleaseSource;
+  ripQuality?: RipQuality;
   mediaInfo: MediaInfo;
   group?: string;
   year?: number;

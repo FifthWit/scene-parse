@@ -165,8 +165,8 @@ export function compareReleases(
   if (diff !== 0) return diff;
 
   diff = cmp(
-    RIP_QUALITY_RANK[a.ripQuality] ?? 0,
-    RIP_QUALITY_RANK[b.ripQuality] ?? 0,
+    RIP_QUALITY_RANK[a.ripQuality ?? ''] ?? 0,
+    RIP_QUALITY_RANK[b.ripQuality ?? ''] ?? 0,
   );
   if (diff !== 0) return diff;
 
@@ -191,8 +191,8 @@ export function compareReleases(
   if (diff !== 0) return diff;
 
   diff = cmp(
-    RIP_QUALITY_RANK[a.ripQuality] ?? 0,
-    RIP_QUALITY_RANK[b.ripQuality] ?? 0,
+    RIP_QUALITY_RANK[a.ripQuality ?? ''] ?? 0,
+    RIP_QUALITY_RANK[b.ripQuality ?? ''] ?? 0,
   );
   if (diff !== 0) return diff;
 
@@ -307,7 +307,7 @@ export function getReleaseScore(release: ReleaseInfo): number {
 
   score += HDR_SCORES[release.mediaInfo.video.HDR] ?? 0;
 
-  score += SOURCE_SCORES[release.ripQuality] ?? 0;
+  score += SOURCE_SCORES[release.ripQuality ?? ''] ?? 0;
 
   const audioCodec = release.mediaInfo.audio.codec;
   let audioScore = 0;

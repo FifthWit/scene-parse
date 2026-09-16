@@ -46,16 +46,24 @@ function detectChannels(token: string): string | undefined {
   return undefined;
 }
 
+const ENCODE_TAGS = new Set(['x264', 'x265']);
+
 function tryMatchCompoundCodec(
   tokens: string[],
   start: number,
   lookup: Record<string, unknown>,
-): { codec: unknown; consumed: number } | null {
+): { codec: unknown; consumed: number; matched: string } | null {
   for (let len = 1; len <= 3 && start + len <= tokens.length; len++) {
-    const candidate = tokens.slice(start, start + len).join('.');
-    const lower = candidate.toLowerCase();
-    if (lower in lookup) {
-      return { codec: lookup[lower], consumed: len };
+    const slice = tokens.slice(start, start + len);
+    const dotted = slice.join('.').toLowerCase();
+    if (dotted in lookup) {
+      return { codec: lookup[dotted], consumed: len, matched: dotted };
+    }
+    if (len > 1) {
+      const joined = slice.join('').toLowerCase();
+      if (joined in lookup) {
+        return { codec: lookup[joined], consumed: len, matched: joined };
+      }
     }
   }
   return null;
@@ -139,6 +147,7 @@ export function parseShowPack(title: string): ShowPackInfo {
   let isAtmos: boolean | undefined;
   let isDual: boolean | undefined;
   let channels: string | undefined;
+  let isEncode: boolean | undefined;
 
   let k = 0;
   while (k < metadataTokens.length) {
@@ -147,6 +156,7 @@ export function parseShowPack(title: string): ShowPackInfo {
     const compoundVideo = tryMatchCompoundCodec(metadataTokens, k, videoCodecMap);
     if (compoundVideo) {
       videoCodec = compoundVideo.codec as typeof videoCodec;
+      isEncode = ENCODE_TAGS.has(compoundVideo.matched);
       k += compoundVideo.consumed;
       continue;
     }
@@ -229,6 +239,7 @@ export function parseShowPack(title: string): ShowPackInfo {
     const lowerToken = token.toLowerCase();
     if (lowerToken in videoCodecMap) {
       videoCodec = videoCodecMap[lowerToken];
+      isEncode = ENCODE_TAGS.has(lowerToken);
       k++;
       continue;
     }
@@ -245,6 +256,7 @@ export function parseShowPack(title: string): ShowPackInfo {
 
       if (possibleCodec in videoCodecMap) {
         videoCodec = videoCodecMap[possibleCodec];
+        isEncode = ENCODE_TAGS.has(possibleCodec);
         group = possibleGroup;
         k++;
         continue;
@@ -272,6 +284,7 @@ export function parseShowPack(title: string): ShowPackInfo {
       codec: videoCodec ?? { name: 'unknown', aliases: [], codecType: 'video', foss: false, lossy: true },
       HDR: hdr,
       ...(is3D !== undefined ? { is3D } : {}),
+      ...(isEncode !== undefined ? { isEncode } : {}),
     },
     audio: {
       codec: audioCodec ?? { name: 'unknown', aliases: [], codecType: 'audio', foss: false, lossy: true },
@@ -284,10 +297,10 @@ export function parseShowPack(title: string): ShowPackInfo {
 
   const base = {
     title: titleTokens.join(' '),
-    source: source ?? ('NF' as keyof typeof SOURCE_MAP),
-    ripQuality: ripQuality ?? ('WEBRip' as (typeof RIP_QUALITIES)[number]),
     mediaInfo,
     group,
+    ...(source !== undefined ? { source } : {}),
+    ...(ripQuality !== undefined ? { ripQuality } : {}),
     ...(year !== undefined ? { year } : {}),
     ...(edition !== undefined ? { edition } : {}),
   };
@@ -313,9 +326,9 @@ export function parseShowPack(title: string): ShowPackInfo {
   const result = parseTitle(title);
   const fallbackBase = {
     title: result.title,
-    source: result.source,
-    ripQuality: result.ripQuality,
     mediaInfo: result.mediaInfo,
+    ...(result.source !== undefined ? { source: result.source } : {}),
+    ...(result.ripQuality !== undefined ? { ripQuality: result.ripQuality } : {}),
     ...(result.group !== undefined ? { group: result.group } : {}),
     ...(result.year !== undefined ? { year: result.year } : {}),
     ...(result.edition !== undefined ? { edition: result.edition } : {}),

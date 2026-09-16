@@ -7,81 +7,94 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Better.Call.Saul.S03.1080p.NF.WEBRip.DD5.1.x264-ViSUM",
     expected: {
-      type: "show",
-      title: "Better Call Saul",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Better Call Saul",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "ViSUM",
-      season: 3,
-      episode: null,
-      episodes: [],
-      warnings: [],
+      "group": "ViSUM",
+      "source": "NF",
+      "ripQuality": "WEBRip",
+      "season": 3,
+      "episode": null,
+      "episodes": [],
+      "warnings": [],
     },
   },
   {
     input: "Inception.2010.1080p.Bluray.DD5.1.x264-AMIABLE",
     expected: {
-      type: "movie",
-      title: "Inception",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Inception",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "AMIABLE",
-      year: 2010,
-      warnings: [
+      "group": "AMIABLE",
+      "ripQuality": "Bluray",
+      "year": 2010,
+      "warnings": [
         'Could not detect source from: "Inception.2010.1080p.Bluray.DD5.1.x264-AMIABLE"',
       ],
     },
@@ -89,41 +102,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "The.Matrix.1999.2160p.REMUX.Bluray.HDR10+.DD5.1.x265-GROUP",
     expected: {
-      type: "movie",
-      title: "The Matrix",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 3840,
-            height: 2160,
-            full: "3840x2160",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "The Matrix",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 3840,
+            "height": 2160,
+            "full": "3840x2160",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h265",
-            aliases: ["x265"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h265",
+            "aliases": [
+              "x265",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "HDR10+",
+          "HDR": "HDR10+",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 1999,
-      isRemux: true,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "Bluray",
+      "year": 1999,
+      "isRemux": true,
+      "warnings": [
         'Could not detect source from: "The.Matrix.1999.2160p.REMUX.Bluray.HDR10+.DD5.1.x265-GROUP"',
       ],
     },
@@ -131,41 +149,47 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Avatar.2009.1080p.3D.Bluray.HSBS.DD5.1.x264-3DGroup",
     expected: {
-      type: "movie",
-      title: "Avatar",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Avatar",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
-          is3D: true,
+          "HDR": "SDR",
+          "is3D": true,
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "3DGroup",
-      year: 2009,
-      warnings: [
+      "group": "3DGroup",
+      "ripQuality": "Bluray",
+      "year": 2009,
+      "warnings": [
         'Could not detect source from: "Avatar.2009.1080p.3D.Bluray.HSBS.DD5.1.x264-3DGroup"',
       ],
     },
@@ -173,40 +197,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "The.Dark.Knight.2008.720p.BRRip.x264.AC3-EVO",
     expected: {
-      type: "movie",
-      title: "The Dark Knight",
-      source: "NF",
-      ripQuality: "BRRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1280,
-            height: 720,
-            full: "1280x720",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "The Dark Knight",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1280,
+            "height": 720,
+            "full": "1280x720",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "EVO",
-      year: 2008,
-      warnings: [
+      "group": "EVO",
+      "ripQuality": "BRRip",
+      "year": 2008,
+      "warnings": [
         'Could not detect source from: "The.Dark.Knight.2008.720p.BRRip.x264.AC3-EVO"',
       ],
     },
@@ -214,41 +244,43 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Alien.1979.DC.1080p.Bluray.x265-HEVC",
     expected: {
-      type: "movie",
-      title: "Alien",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Alien",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h265",
-            aliases: ["x265"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h265",
+            "aliases": [
+              "x265",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "HEVC",
-      year: 1979,
-      edition: "Director's Cut",
-      warnings: [
+      "group": "HEVC",
+      "ripQuality": "Bluray",
+      "year": 1979,
+      "edition": "Director's Cut",
+      "warnings": [
         'Could not detect audio codec from: "Alien.1979.DC.1080p.Bluray.x265-HEVC"',
         'Could not detect source from: "Alien.1979.DC.1080p.Bluray.x265-HEVC"',
       ],
@@ -257,42 +289,48 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Gladiator.2000.EXTENDED.1080p.REMUX.Bluray.DD5.1.x264-EPSiLON",
     expected: {
-      type: "movie",
-      title: "Gladiator",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Gladiator",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "EPSiLON",
-      year: 2000,
-      edition: "Extended",
-      isRemux: true,
-      warnings: [
+      "group": "EPSiLON",
+      "ripQuality": "Bluray",
+      "year": 2000,
+      "edition": "Extended",
+      "isRemux": true,
+      "warnings": [
         'Could not detect source from: "Gladiator.2000.EXTENDED.1080p.REMUX.Bluray.DD5.1.x264-EPSiLON"',
       ],
     },
@@ -300,41 +338,47 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Heat.1995.REMASTERED.1080p.Bluray.DD5.1.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Heat",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Heat",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 1995,
-      edition: "Remastered",
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "Bluray",
+      "year": 1995,
+      "edition": "Remastered",
+      "warnings": [
         'Could not detect source from: "Heat.1995.REMASTERED.1080p.Bluray.DD5.1.x264-GROUP"',
       ],
     },
@@ -342,41 +386,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Name.2023.PROPER.1080p.WEB-DL.DD5.1.HDR10+.x265-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "NF",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h265",
-            aliases: ["x265"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h265",
+            "aliases": [
+              "x265",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "HDR10+",
+          "HDR": "HDR10+",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 2023,
-      isProper: true,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "WEB-DL",
+      "year": 2023,
+      "isProper": true,
+      "warnings": [
         'Could not detect source from: "Movie.Name.2023.PROPER.1080p.WEB-DL.DD5.1.HDR10+.x265-GROUP"',
       ],
     },
@@ -384,41 +433,43 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Name.2022.REPACK.2160p.WEB-DL.HDR10.x265-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "NF",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 3840,
-            height: 2160,
-            full: "3840x2160",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 3840,
+            "height": 2160,
+            "full": "3840x2160",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h265",
-            aliases: ["x265"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h265",
+            "aliases": [
+              "x265",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "HDR10",
+          "HDR": "HDR10",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 2022,
-      isRepack: true,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "WEB-DL",
+      "year": 2022,
+      "isRepack": true,
+      "warnings": [
         'Could not detect audio codec from: "Movie.Name.2022.REPACK.2160p.WEB-DL.HDR10.x265-GROUP"',
         'Could not detect source from: "Movie.Name.2022.REPACK.2160p.WEB-DL.HDR10.x265-GROUP"',
       ],
@@ -427,81 +478,91 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Name.2021.1080p.AMZN.WEB-DL.DD5.1.Atmos.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "AMZN",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
-          isAtmos: true,
+          "isAtmos": true,
         },
       },
-      group: "GROUP",
-      year: 2021,
-      warnings: [],
+      "group": "GROUP",
+      "source": "AMZN",
+      "ripQuality": "WEB-DL",
+      "year": 2021,
+      "warnings": [],
     },
   },
   {
     input: "Movie.Name.2020.1080p.WEBRip.DUAL.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
-          isDual: true,
+          "isDual": true,
         },
       },
-      group: "GROUP",
-      year: 2020,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "WEBRip",
+      "year": 2020,
+      "warnings": [
         'Could not detect audio codec from: "Movie.Name.2020.1080p.WEBRip.DUAL.x264-GROUP"',
         'Could not detect source from: "Movie.Name.2020.1080p.WEBRip.DUAL.x264-GROUP"',
       ],
@@ -510,40 +571,43 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Name.2018.720p.HD-TV.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "NF",
-      ripQuality: "HD-TV",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1280,
-            height: 720,
-            full: "1280x720",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1280,
+            "height": 720,
+            "full": "1280x720",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 2018,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "HD-TV",
+      "year": 2018,
+      "warnings": [
         'Could not detect audio codec from: "Movie.Name.2018.720p.HD-TV.x264-GROUP"',
         'Could not detect source from: "Movie.Name.2018.720p.HD-TV.x264-GROUP"',
       ],
@@ -552,40 +616,43 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Name.1080p.WEB-DL.AAC.2ch.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "NF",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "aac",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
-          channels: "2.0",
+          "channels": "2.0",
         },
       },
-      group: "GROUP",
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "WEB-DL",
+      "warnings": [
         'Could not detect source from: "Movie.Name.1080p.WEB-DL.AAC.2ch.x264-GROUP"',
       ],
     },
@@ -593,40 +660,43 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Name.2019.1080p.Bluray.REMUX.AVC.DD5.1-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": false,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      year: 2019,
-      isRemux: true,
-      warnings: [
+      "ripQuality": "Bluray",
+      "year": 2019,
+      "isRemux": true,
+      "warnings": [
         'Could not detect audio codec from: "Movie.Name.2019.1080p.Bluray.REMUX.AVC.DD5.1-GROUP"',
         'Could not detect source from: "Movie.Name.2019.1080p.Bluray.REMUX.AVC.DD5.1-GROUP"',
       ],
@@ -635,125 +705,147 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.S01.E01.1080p.NF.WEB-DL.DD5.1.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 1,
-      episodes: [1],
-      warnings: [],
+      "group": "GROUP",
+      "source": "NF",
+      "ripQuality": "WEB-DL",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+      ],
+      "warnings": [],
     },
   },
   {
     input: "Show.Name.S03.1080p.AMZN.WEB-DL.DD5.1.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "AMZN",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 3,
-      episode: null,
-      episodes: [],
-      warnings: [],
+      "group": "GROUP",
+      "source": "AMZN",
+      "ripQuality": "WEB-DL",
+      "season": 3,
+      "episode": null,
+      "episodes": [],
+      "warnings": [],
     },
   },
   {
     input: "Show.Name.2019.S01.E01E02.1080p.Bluray.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 2019,
-      season: 1,
-      episode: 1,
-      episodes: [1, 2],
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "Bluray",
+      "year": 2019,
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+        2,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.2019.S01.E01E02.1080p.Bluray.x264-GROUP"',
         'Could not detect source from: "Show.Name.2019.S01.E01E02.1080p.Bluray.x264-GROUP"',
       ],
@@ -762,42 +854,51 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.S02.E01-E05.720p.HD-TV.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "HD-TV",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1280,
-            height: 720,
-            full: "1280x720",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1280,
+            "height": 720,
+            "full": "1280x720",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 2,
-      episode: 1,
-      episodes: [1, 2, 3, 4, 5],
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "HD-TV",
+      "season": 2,
+      "episode": 1,
+      "episodes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.S02.E01-E05.720p.HD-TV.x264-GROUP"',
         'Could not detect source from: "Show.Name.S02.E01-E05.720p.HD-TV.x264-GROUP"',
       ],
@@ -806,42 +907,47 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.S01.E01.1080p.HDRip.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "HDRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 1,
-      episodes: [1],
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "HDRip",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.S01.E01.1080p.HDRip.x264-GROUP"',
         'Could not detect source from: "Show.Name.S01.E01.1080p.HDRip.x264-GROUP"',
       ],
@@ -850,42 +956,47 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.S01.E01.2160p.DSNP.WEB-DL.DV.x265-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "DSNP",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 3840,
-            height: 2160,
-            full: "3840x2160",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 3840,
+            "height": 2160,
+            "full": "3840x2160",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h265",
-            aliases: ["x265"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h265",
+            "aliases": [
+              "x265",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "DolbyVision",
+          "HDR": "DolbyVision",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 1,
-      episodes: [1],
-      warnings: [
+      "group": "GROUP",
+      "source": "DSNP",
+      "ripQuality": "WEB-DL",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.S01.E01.2160p.DSNP.WEB-DL.DV.x265-GROUP"',
       ],
     },
@@ -893,42 +1004,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.S01.E01.720p.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1280,
-            height: 720,
-            full: "1280x720",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1280,
+            "height": 720,
+            "full": "1280x720",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 1,
-      episodes: [1],
-      warnings: [
+      "group": "GROUP",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.S01.E01.720p.x264-GROUP"',
         'Could not detect source from: "Show.Name.S01.E01.720p.x264-GROUP"',
         'Could not detect rip quality from: "Show.Name.S01.E01.720p.x264-GROUP"',
@@ -938,39 +1053,37 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Title.2020",
     expected: {
-      type: "movie",
-      title: "Movie Title",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 0,
-            height: 0,
-            full: "unknown",
-            aspectRatio: "unknown",
+      "type": "movie",
+      "title": "Movie Title",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 0,
+            "height": 0,
+            "full": "unknown",
+            "aspectRatio": "unknown",
           },
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      year: 2020,
-      warnings: [
+      "year": 2020,
+      "warnings": [
         'Could not detect video quality from: "Movie.Title.2020"',
         'Could not detect video codec from: "Movie.Title.2020"',
         'Could not detect audio codec from: "Movie.Title.2020"',
@@ -982,41 +1095,41 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.S01.E01",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 0,
-            height: 0,
-            full: "unknown",
-            aspectRatio: "unknown",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 0,
+            "height": 0,
+            "full": "unknown",
+            "aspectRatio": "unknown",
           },
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      season: 1,
-      episode: 1,
-      episodes: [1],
-      warnings: [
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+      ],
+      "warnings": [
         'Could not detect video quality from: "Show.Name.S01.E01"',
         'Could not detect video codec from: "Show.Name.S01.E01"',
         'Could not detect audio codec from: "Show.Name.S01.E01"',
@@ -1028,38 +1141,36 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Some.Movie.Title",
     expected: {
-      type: "movie",
-      title: "Some Movie Title",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 0,
-            height: 0,
-            full: "unknown",
-            aspectRatio: "unknown",
+      "type": "movie",
+      "title": "Some Movie Title",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 0,
+            "height": 0,
+            "full": "unknown",
+            "aspectRatio": "unknown",
           },
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      warnings: [
+      "warnings": [
         'Could not detect video quality from: "Some.Movie.Title"',
         'Could not detect video codec from: "Some.Movie.Title"',
         'Could not detect audio codec from: "Some.Movie.Title"',
@@ -1071,42 +1182,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.E01.1080p.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 1,
-      episodes: [1],
-      warnings: [
+      "group": "GROUP",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.E01.1080p.x264-GROUP"',
         'Could not detect source from: "Show.Name.E01.1080p.x264-GROUP"',
         'Could not detect rip quality from: "Show.Name.E01.1080p.x264-GROUP"',
@@ -1116,39 +1231,42 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.Name.2160p.DSNP.WEB-DL.HDR10.x265-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie Name",
-      source: "DSNP",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 3840,
-            height: 2160,
-            full: "3840x2160",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 3840,
+            "height": 2160,
+            "full": "3840x2160",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h265",
-            aliases: ["x265"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h265",
+            "aliases": [
+              "x265",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "HDR10",
+          "HDR": "HDR10",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      warnings: [
+      "group": "GROUP",
+      "source": "DSNP",
+      "ripQuality": "WEB-DL",
+      "warnings": [
         'Could not detect audio codec from: "Movie.Name.2160p.DSNP.WEB-DL.HDR10.x265-GROUP"',
       ],
     },
@@ -1156,42 +1274,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.S01.E01.480p.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 854,
-            height: 480,
-            full: "854x480",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 854,
+            "height": 480,
+            "full": "854x480",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 1,
-      episodes: [1],
-      warnings: [
+      "group": "GROUP",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.S01.E01.480p.x264-GROUP"',
         'Could not detect source from: "Show.S01.E01.480p.x264-GROUP"',
         'Could not detect rip quality from: "Show.S01.E01.480p.x264-GROUP"',
@@ -1201,40 +1323,43 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.1999.DVD.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie",
-      source: "NF",
-      ripQuality: "DVD",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 0,
-            height: 0,
-            full: "unknown",
-            aspectRatio: "unknown",
+      "type": "movie",
+      "title": "Movie",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 0,
+            "height": 0,
+            "full": "unknown",
+            "aspectRatio": "unknown",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 1999,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "DVD",
+      "year": 1999,
+      "warnings": [
         'Could not detect video quality from: "Movie.1999.DVD.x264-GROUP"',
         'Could not detect audio codec from: "Movie.1999.DVD.x264-GROUP"',
         'Could not detect source from: "Movie.1999.DVD.x264-GROUP"',
@@ -1244,83 +1369,95 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.S01.E02.1080p.ATVP.WEB-DL.DD5.1.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "ATVP",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 2,
-      episodes: [2],
-      warnings: [],
+      "group": "GROUP",
+      "source": "ATVP",
+      "ripQuality": "WEB-DL",
+      "season": 1,
+      "episode": 2,
+      "episodes": [
+        2,
+      ],
+      "warnings": [],
     },
   },
   {
     input: "Show.S05.720p.HULU.WEB-DL.x265-GROUP",
     expected: {
-      type: "show",
-      title: "Show",
-      source: "HULU",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1280,
-            height: 720,
-            full: "1280x720",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1280,
+            "height": 720,
+            "full": "1280x720",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h265",
-            aliases: ["x265"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h265",
+            "aliases": [
+              "x265",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 5,
-      episode: null,
-      episodes: [],
-      warnings: [
+      "group": "GROUP",
+      "source": "HULU",
+      "ripQuality": "WEB-DL",
+      "season": 5,
+      "episode": null,
+      "episodes": [],
+      "warnings": [
         'Could not detect audio codec from: "Show.S05.720p.HULU.WEB-DL.x265-GROUP"',
       ],
     },
@@ -1328,40 +1465,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.2023.iNTERNAL.1080p.WEB-DL.DD5.1.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie",
-      source: "NF",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "ac3",
-            aliases: ["AC-3", "DD5.1"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "ac3",
+            "aliases": [
+              "AC-3",
+              "DD5.1",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 2023,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "WEB-DL",
+      "year": 2023,
+      "warnings": [
         'Could not detect source from: "Movie.2023.iNTERNAL.1080p.WEB-DL.DD5.1.x264-GROUP"',
       ],
     },
@@ -1369,40 +1512,48 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Movie.2024.2160p.WEB-DL.E-AC3.x264-GROUP",
     expected: {
-      type: "movie",
-      title: "Movie",
-      source: "NF",
-      ripQuality: "WEB-DL",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 3840,
-            height: 2160,
-            full: "3840x2160",
-            aspectRatio: "16:9",
+      "type": "movie",
+      "title": "Movie",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 3840,
+            "height": 2160,
+            "full": "3840x2160",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "eac3",
-            aliases: ["E-AC3", "E-AC-3", "DDP5.1", "DDP"],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "eac3",
+            "aliases": [
+              "E-AC3",
+              "E-AC-3",
+              "DDP5.1",
+              "DDP",
+            ],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 2024,
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "WEB-DL",
+      "year": 2024,
+      "warnings": [
         'Could not detect source from: "Movie.2024.2160p.WEB-DL.E-AC3.x264-GROUP"',
       ],
     },
@@ -1410,43 +1561,46 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.2025.COMPLETE.S01.1080p.Bluray.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "Bluray",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      year: 2025,
-      season: 1,
-      episode: null,
-      episodes: [],
-      warnings: [
+      "group": "GROUP",
+      "ripQuality": "Bluray",
+      "year": 2025,
+      "season": 1,
+      "episode": null,
+      "episodes": [],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.2025.COMPLETE.S01.1080p.Bluray.x264-GROUP"',
         'Could not detect source from: "Show.Name.2025.COMPLETE.S01.1080p.Bluray.x264-GROUP"',
       ],
@@ -1455,45 +1609,248 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
   {
     input: "Show.Name.E01.E02.1080p.x264-GROUP",
     expected: {
-      type: "show",
-      title: "Show Name",
-      source: "NF",
-      ripQuality: "WEBRip",
-      mediaInfo: {
-        video: {
-          quality: {
-            width: 1920,
-            height: 1080,
-            full: "1920x1080",
-            aspectRatio: "16:9",
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
           },
-          codec: {
-            name: "h264",
-            aliases: ["x264", "AVC"],
-            codecType: "video",
-            foss: false,
-            lossy: true,
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
           },
-          HDR: "SDR",
+          "HDR": "SDR",
+          "isEncode": true,
         },
-        audio: {
-          codec: {
-            name: "unknown",
-            aliases: [],
-            codecType: "audio",
-            foss: false,
-            lossy: true,
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
           },
         },
       },
-      group: "GROUP",
-      season: 1,
-      episode: 2,
-      episodes: [2],
-      warnings: [
+      "group": "GROUP",
+      "season": 1,
+      "episode": 2,
+      "episodes": [
+        2,
+      ],
+      "warnings": [
         'Could not detect audio codec from: "Show.Name.E01.E02.1080p.x264-GROUP"',
         'Could not detect source from: "Show.Name.E01.E02.1080p.x264-GROUP"',
         'Could not detect rip quality from: "Show.Name.E01.E02.1080p.x264-GROUP"',
+      ],
+    },
+  },
+  {
+    input: "BONES.S1E4.360p.H264.mp4",
+    expected: {
+      "type": "show",
+      "title": "BONES",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 640,
+            "height": 360,
+            "full": "640x360",
+            "aspectRatio": "16:9",
+          },
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
+          },
+          "HDR": "SDR",
+          "isEncode": false,
+        },
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
+          },
+        },
+      },
+      "season": 1,
+      "episode": 4,
+      "episodes": [
+        4,
+      ],
+      "warnings": [
+        'Could not detect audio codec from: "BONES.S1E4.360p.H264.mp4"',
+        'Could not detect source from: "BONES.S1E4.360p.H264.mp4"',
+        'Could not detect rip quality from: "BONES.S1E4.360p.H264.mp4"',
+      ],
+    },
+  },
+  {
+    input: "BONES.S1E4.360p.H.264.mp4",
+    expected: {
+      "type": "show",
+      "title": "BONES",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 640,
+            "height": 360,
+            "full": "640x360",
+            "aspectRatio": "16:9",
+          },
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
+          },
+          "HDR": "SDR",
+          "isEncode": false,
+        },
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
+          },
+        },
+      },
+      "season": 1,
+      "episode": 4,
+      "episodes": [
+        4,
+      ],
+      "warnings": [
+        'Could not detect audio codec from: "BONES.S1E4.360p.H.264.mp4"',
+        'Could not detect source from: "BONES.S1E4.360p.H.264.mp4"',
+        'Could not detect rip quality from: "BONES.S1E4.360p.H.264.mp4"',
+      ],
+    },
+  },
+  {
+    input: "Show.Name.S01E01E02.1080p.x264-GROUP",
+    expected: {
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
+          },
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
+          },
+          "HDR": "SDR",
+          "isEncode": true,
+        },
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
+          },
+        },
+      },
+      "group": "GROUP",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+        2,
+      ],
+      "warnings": [
+        'Could not detect audio codec from: "Show.Name.S01E01E02.1080p.x264-GROUP"',
+        'Could not detect source from: "Show.Name.S01E01E02.1080p.x264-GROUP"',
+        'Could not detect rip quality from: "Show.Name.S01E01E02.1080p.x264-GROUP"',
+      ],
+    },
+  },
+  {
+    input: "Show.Name.S01E01-E05.1080p.x264-GROUP",
+    expected: {
+      "type": "show",
+      "title": "Show Name",
+      "mediaInfo": {
+        "video": {
+          "quality": {
+            "width": 1920,
+            "height": 1080,
+            "full": "1920x1080",
+            "aspectRatio": "16:9",
+          },
+          "codec": {
+            "name": "h264",
+            "aliases": [
+              "x264",
+              "AVC",
+            ],
+            "codecType": "video",
+            "foss": false,
+            "lossy": true,
+          },
+          "HDR": "SDR",
+          "isEncode": true,
+        },
+        "audio": {
+          "codec": {
+            "name": "unknown",
+            "aliases": [],
+            "codecType": "audio",
+            "foss": false,
+            "lossy": true,
+          },
+        },
+      },
+      "group": "GROUP",
+      "season": 1,
+      "episode": 1,
+      "episodes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+      ],
+      "warnings": [
+        'Could not detect audio codec from: "Show.Name.S01E01-E05.1080p.x264-GROUP"',
+        'Could not detect source from: "Show.Name.S01E01-E05.1080p.x264-GROUP"',
+        'Could not detect rip quality from: "Show.Name.S01E01-E05.1080p.x264-GROUP"',
       ],
     },
   },
