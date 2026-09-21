@@ -5,7 +5,8 @@ export const MULTI_EPISODE_SERIES_PATTERN = /^E(\d{1,3})(E\d{1,3})+$/i;
 export const SEASON_PATTERN = /^S(\d{1,2})$/i;
 export const SEASON_RANGE_PATTERN = /^S(\d{1,2})-S(\d{1,2})$/i;
 export const SEASON_EPISODE_PATTERN = /^S(\d{1,2})E(\d{1,3})$/i;
-export const SEASON_MULTI_EPISODE_PATTERN = /^S(\d{1,2})E(\d{1,3})-E(\d{1,3})$/i;
+export const SEASON_MULTI_EPISODE_PATTERN =
+  /^S(\d{1,2})E(\d{1,3})-E(\d{1,3})$/i;
 export const SEASON_MULTI_EPISODE_SERIES_PATTERN =
   /^S(\d{1,2})E(\d{1,3})(E\d{1,3})+$/i;
 export const REMUX_PATTERN = /^REMUX$/i;
@@ -17,6 +18,8 @@ export const THREE_D_PATTERN = /^(?:3D|HSBS|HOU|Half[.\s]?SBS|H-SBS|Half-OU)$/i;
 export const DUAL_AUDIO_PATTERN = /^(?:DUAL|MULTi|MULTI)$/i;
 export const DOLBY_ATMOS_PATTERN = /Atmos|TrueHD\.Atmos|DDP\.Atmos/i;
 export const SCENE_GROUP_PATTERN = /^-[A-Za-z0-9]+$/;
+export const PHYSICAL_MEDIA_PATTERN =
+  /(\bDVD(?:Rip)?\b)|(\bB(?:lu)?Ray\b)|(\bBR(?:-DISK)?\b)|(B(?:R)?(?:D)?Rip)/gi;
 
 export const EDITION_MAP = {
   Extended: /^(?:EXTENDED|EXT\.?)$/i,
@@ -38,6 +41,7 @@ export const RIP_QUALITIES = [
   "WEB-DL",
   "WEBRip",
   "DVD",
+  "DVDRip",
   "HD-TV",
   "Bluray",
   "HDRip",

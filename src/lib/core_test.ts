@@ -1,37 +1,37 @@
 import { expect } from "@std/expect";
 import { describe, it } from "@std/testing/bdd";
 import {
-  getCodecInfo,
-  getCodecByName,
   getCodecByAlias,
+  getCodecByName,
+  getCodecInfo,
+  listAudioCodecNames,
   listCodecs,
   listVideoCodecNames,
-  listAudioCodecNames,
 } from "./core.ts";
 import { getQualityInfo, listQualities } from "./core.ts";
 import {
-  getSourceInfo,
   getSourceByFullName,
+  getSourceInfo,
   listSources,
   listSourceShorthands,
 } from "./core.ts";
 import { detectHDR, getHDRInfo, listHDRTypes } from "./core.ts";
 import {
-  YEAR_PATTERN,
+  COMPLETE_PATTERN,
+  detectEdition,
+  DOLBY_ATMOS_PATTERN,
+  DUAL_AUDIO_PATTERN,
   EPISODE_PATTERN,
+  INTERNAL_PATTERN,
   MULTI_EPISODE_PATTERN,
   MULTI_EPISODE_SERIES_PATTERN,
-  SEASON_PATTERN,
-  SEASON_RANGE_PATTERN,
+  PROPER_PATTERN,
   REMUX_PATTERN,
   REPACK_PATTERN,
-  PROPER_PATTERN,
-  INTERNAL_PATTERN,
-  COMPLETE_PATTERN,
+  SEASON_PATTERN,
+  SEASON_RANGE_PATTERN,
   THREE_D_PATTERN,
-  DUAL_AUDIO_PATTERN,
-  DOLBY_ATMOS_PATTERN,
-  detectEdition,
+  YEAR_PATTERN,
 } from "./core.ts";
 import { BROWSER_CODEC_MATRIX } from "./core.ts";
 

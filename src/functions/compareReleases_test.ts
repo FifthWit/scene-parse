@@ -2,9 +2,9 @@ import { expect } from "@std/expect";
 import { describe, it } from "@std/testing/bdd";
 import {
   compareReleases,
-  rankReleases,
   getReleaseScore,
   getResolutionScore,
+  rankReleases,
 } from "./compareReleases.ts";
 import type { ReleaseInfoMovie } from "../types/core.ts";
 

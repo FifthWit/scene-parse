@@ -1,9 +1,9 @@
 import type { LanguageCode } from "@hongminhee/iso639-1";
 import type {
-  SOURCE_MAP,
+  EDITION_MAP,
   HDR_TYPES_MAP,
   RIP_QUALITIES,
-  EDITION_MAP,
+  SOURCE_MAP,
 } from "../lib/core.ts";
 
 type HDRType = keyof typeof HDR_TYPES_MAP;
@@ -113,22 +113,22 @@ type CompleteSeriesPack = ShowPackInfoBase & {
 type ShowPackInfo = SeasonPack | EpisodeRangePack | CompleteSeriesPack;
 
 export type {
+  CompleteSeriesPack,
+  EditionType,
+  EpisodeRangePack,
+  HDRType,
+  MediaCodecInfo,
   MediaInfo,
   MediaQualityInfo,
-  MediaCodecInfo,
+  ParseResult,
   ReleaseInfo,
   ReleaseInfoBase,
-  ReleaseSource,
-  RipQuality,
-  HDRType,
-  EditionType,
+  ReleaseInfoMovie,
   ReleaseInfoShowEpisode,
   ReleaseInfoShowSeasonPack,
-  ReleaseInfoMovie,
-  ParseResult,
+  ReleaseSource,
+  RipQuality,
+  SeasonPack,
   ShowPackInfo,
   ShowPackInfoBase,
-  SeasonPack,
-  EpisodeRangePack,
-  CompleteSeriesPack,
 };

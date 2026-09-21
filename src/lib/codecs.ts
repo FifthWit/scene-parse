@@ -74,7 +74,14 @@ export const CODEC_DEFS = {
     },
     {
       name: "dts",
-      aliases: ["DTS", "DTS-HD", "DTS-HD.MA", "DTS-HD.HRA", "DTS-X", "DTS.X"] as string[],
+      aliases: [
+        "DTS",
+        "DTS-HD",
+        "DTS-HD.MA",
+        "DTS-HD.HRA",
+        "DTS-X",
+        "DTS.X",
+      ] as string[],
       codecType: "audio",
       foss: false,
       lossy: true,
@@ -149,7 +156,7 @@ export function getCodecByAlias(alias: string): CodecDef | undefined {
 export function getCodecInfo(nameOrAlias: string): CodecDef | undefined {
   return (
     nameIndex.get(nameOrAlias.toLowerCase()) ??
-    aliasIndex.get(nameOrAlias.toLowerCase())
+      aliasIndex.get(nameOrAlias.toLowerCase())
   );
 }
 

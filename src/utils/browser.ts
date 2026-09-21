@@ -1,11 +1,11 @@
 import type {
+  BrowserCompatibilityPreferences,
   BrowserInfo,
   CodecCompatibility,
-  BrowserCompatibilityPreferences,
-} from '../types/browser.ts';
-import type { ReleaseInfo } from '../types/core.ts';
-import type { BrowserCodecEntry } from '../lib/browser-data.ts';
-import { BROWSER_CODEC_MATRIX } from '../lib/browser-data.ts';
+} from "../types/browser.ts";
+import type { ReleaseInfo } from "../types/core.ts";
+import type { BrowserCodecEntry } from "../lib/browser-data.ts";
+import { BROWSER_CODEC_MATRIX } from "../lib/browser-data.ts";
 
 let browserMatrix: BrowserCodecEntry[] = [...BROWSER_CODEC_MATRIX];
 
@@ -14,18 +14,18 @@ export function detectBrowserInfo(userAgent: string): BrowserInfo {
 
   const edgeMatch = userAgent.match(/Edg(?:e|A|iOS)?\/(\d+)/);
   if (edgeMatch) {
-    return { name: 'Edge', version: parseInt(edgeMatch[1], 10), isMobile };
+    return { name: "Edge", version: parseInt(edgeMatch[1], 10), isMobile };
   }
 
   const operaMatch = userAgent.match(/(?:OPR|Opera)\/(\d+)/);
   if (operaMatch) {
-    return { name: 'Opera', version: parseInt(operaMatch[1], 10), isMobile };
+    return { name: "Opera", version: parseInt(operaMatch[1], 10), isMobile };
   }
 
   const samsungMatch = userAgent.match(/SamsungBrowser\/(\d+)/);
   if (samsungMatch) {
     return {
-      name: 'Samsung Browser',
+      name: "Samsung Browser",
       version: parseInt(samsungMatch[1], 10),
       isMobile,
     };
@@ -33,7 +33,7 @@ export function detectBrowserInfo(userAgent: string): BrowserInfo {
 
   const chromeMatch = userAgent.match(/Chrome\/(\d+)/);
   if (chromeMatch && !/Edg\//i.test(userAgent)) {
-    return { name: 'Chrome', version: parseInt(chromeMatch[1], 10), isMobile };
+    return { name: "Chrome", version: parseInt(chromeMatch[1], 10), isMobile };
   }
 
   const safariVersionMatch = userAgent.match(/Version\/(\d+)/);
@@ -44,7 +44,7 @@ export function detectBrowserInfo(userAgent: string): BrowserInfo {
     !/Edg\//i.test(userAgent)
   ) {
     return {
-      name: 'Safari',
+      name: "Safari",
       version: parseInt(safariVersionMatch[1], 10),
       isMobile,
     };
@@ -52,10 +52,14 @@ export function detectBrowserInfo(userAgent: string): BrowserInfo {
 
   const firefoxMatch = userAgent.match(/Firefox\/(\d+)/);
   if (firefoxMatch) {
-    return { name: 'Firefox', version: parseInt(firefoxMatch[1], 10), isMobile };
+    return {
+      name: "Firefox",
+      version: parseInt(firefoxMatch[1], 10),
+      isMobile,
+    };
   }
 
-  return { name: 'Unknown', version: 0, isMobile };
+  return { name: "Unknown", version: 0, isMobile };
 }
 
 export function getCompatibleCodecs(userAgent: string): CodecCompatibility {
@@ -77,7 +81,7 @@ export function getCompatibleCodecs(userAgent: string): CodecCompatibility {
 export function isCodecCompatible(
   codecName: string,
   userAgent: string,
-  type: 'video' | 'audio',
+  type: "video" | "audio",
 ): boolean {
   const codecs = getCompatibleCodecs(userAgent);
   const lower = codecName.toLowerCase();
@@ -91,8 +95,8 @@ export function isReleaseCompatible(
   const videoCodec = release.mediaInfo.video.codec.name;
   const audioCodec = release.mediaInfo.audio.codec.name;
   return (
-    isCodecCompatible(videoCodec, userAgent, 'video') &&
-    isCodecCompatible(audioCodec, userAgent, 'audio')
+    isCodecCompatible(videoCodec, userAgent, "video") &&
+    isCodecCompatible(audioCodec, userAgent, "audio")
   );
 }
 
@@ -105,8 +109,8 @@ export function getBestCompatibleRelease(
   if (compatible.length === 0) return null;
 
   compatible.sort((a, b) => {
-    const resDiff =
-      b.mediaInfo.video.quality.height - a.mediaInfo.video.quality.height;
+    const resDiff = b.mediaInfo.video.quality.height -
+      a.mediaInfo.video.quality.height;
     if (resDiff !== 0) return resDiff;
 
     if (preferences?.preferredVideoCodecs) {
@@ -144,19 +148,19 @@ export function getBestCompatibleRelease(
     }
 
     if (preferences?.preferFOSS) {
-      const aFoss =
-        a.mediaInfo.video.codec.foss && a.mediaInfo.audio.codec.foss;
-      const bFoss =
-        b.mediaInfo.video.codec.foss && b.mediaInfo.audio.codec.foss;
+      const aFoss = a.mediaInfo.video.codec.foss &&
+        a.mediaInfo.audio.codec.foss;
+      const bFoss = b.mediaInfo.video.codec.foss &&
+        b.mediaInfo.audio.codec.foss;
       if (aFoss && !bFoss) return -1;
       if (!aFoss && bFoss) return 1;
     }
 
     if (preferences?.preferLossless) {
-      const aLossless =
-        !a.mediaInfo.video.codec.lossy && !a.mediaInfo.audio.codec.lossy;
-      const bLossless =
-        !b.mediaInfo.video.codec.lossy && !b.mediaInfo.audio.codec.lossy;
+      const aLossless = !a.mediaInfo.video.codec.lossy &&
+        !a.mediaInfo.audio.codec.lossy;
+      const bLossless = !b.mediaInfo.video.codec.lossy &&
+        !b.mediaInfo.audio.codec.lossy;
       if (aLossless && !bLossless) return -1;
       if (!aLossless && bLossless) return 1;
     }

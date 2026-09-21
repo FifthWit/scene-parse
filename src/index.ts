@@ -10,144 +10,144 @@ export { validateTitle } from "./functions/validateTitle.ts";
 export type { ValidationResult } from "./functions/validateTitle.ts";
 export {
   compareReleases,
-  rankReleases,
   getReleaseScore,
   getResolutionScore,
+  rankReleases,
 } from "./functions/compareReleases.ts";
 export type { ComparePreferences } from "./functions/compareReleases.ts";
 export { parseNFO } from "./functions/parseNFO.ts";
 
 export {
   detectMediaType,
-  getFileExtension,
-  isVideoFile,
-  isAudioFile,
-  isSubtitleFile,
-  isArchiveFile,
-  isNFOFile,
-  formatFileSize,
-  parseFileSize,
   formatDuration,
+  formatFileSize,
+  getFileExtension,
+  isArchiveFile,
+  isAudioFile,
+  isNFOFile,
+  isSubtitleFile,
+  isVideoFile,
   parseDuration,
+  parseFileSize,
 } from "./utils/media.ts";
 
 export {
   detectBrowserInfo,
+  getBestCompatibleRelease,
   getCompatibleCodecs,
   isCodecCompatible,
   isReleaseCompatible,
-  getBestCompatibleRelease,
   setCustomBrowserMatrix,
 } from "./utils/browser.ts";
 export type {
+  BrowserCompatibilityPreferences,
   BrowserInfo,
   CodecCompatibility,
-  BrowserCompatibilityPreferences,
 } from "./types/browser.ts";
 
 export {
   CODEC_DEFS,
-  getCodecByName,
   getCodecByAlias,
+  getCodecByName,
   getCodecInfo,
+  listAudioCodecNames,
   listCodecs,
   listVideoCodecNames,
-  listAudioCodecNames,
 } from "./lib/core.ts";
 
 export {
-  VIDEO_QUALITY_MAP,
   getQualityInfo,
   listQualities,
+  VIDEO_QUALITY_MAP,
 } from "./lib/core.ts";
 export {
-  SOURCE_MAP,
-  getSourceInfo,
   getSourceByFullName,
+  getSourceInfo,
   listSources,
   listSourceShorthands,
+  SOURCE_MAP,
 } from "./lib/core.ts";
 export {
-  HDR_TYPES_MAP,
-  HDR_PATTERNS,
   detectHDR,
   getHDRInfo,
+  HDR_PATTERNS,
+  HDR_TYPES_MAP,
   listHDRTypes,
 } from "./lib/core.ts";
 export { BROWSER_CODEC_MATRIX } from "./lib/core.ts";
 export {
-  YEAR_PATTERN,
+  COMPLETE_PATTERN,
+  detectEdition,
+  DOLBY_ATMOS_PATTERN,
+  DUAL_AUDIO_PATTERN,
+  EDITION_MAP,
   EPISODE_PATTERN,
+  INTERNAL_PATTERN,
   MULTI_EPISODE_PATTERN,
   MULTI_EPISODE_SERIES_PATTERN,
-  SEASON_PATTERN,
-  SEASON_RANGE_PATTERN,
+  PROPER_PATTERN,
+  REMUX_PATTERN,
+  REPACK_PATTERN,
+  RIP_QUALITIES,
+  SCENE_GROUP_PATTERN,
   SEASON_EPISODE_PATTERN,
   SEASON_MULTI_EPISODE_PATTERN,
   SEASON_MULTI_EPISODE_SERIES_PATTERN,
-  REMUX_PATTERN,
-  REPACK_PATTERN,
-  PROPER_PATTERN,
-  INTERNAL_PATTERN,
-  COMPLETE_PATTERN,
+  SEASON_PATTERN,
+  SEASON_RANGE_PATTERN,
   THREE_D_PATTERN,
-  DUAL_AUDIO_PATTERN,
-  DOLBY_ATMOS_PATTERN,
-  SCENE_GROUP_PATTERN,
-  EDITION_MAP,
-  RIP_QUALITIES,
-  detectEdition,
+  YEAR_PATTERN,
 } from "./lib/core.ts";
 
 export type {
-  CodecType,
-  VideoCodecDef,
   AudioCodecDef,
+  BrowserCodecEntry,
   CodecDef,
-  VideoQuality,
-  VideoQualityInfo,
+  CodecType,
+  EditionType,
   HDRType,
   HDRTypeInfo,
-  BrowserCodecEntry,
-  EditionType,
   ReleaseSource,
   RipQuality,
   SourceInfo,
+  VideoCodecDef,
+  VideoQuality,
+  VideoQualityInfo,
 } from "./lib/core.ts";
 
 export {
-  registerHandler,
-  removeHandler,
-  getHandlers,
-  getHandlersForField,
   applyHandlers,
   clearHandlers,
+  getHandlers,
+  getHandlersForField,
+  registerHandler,
+  removeHandler,
   resetHandlers,
 } from "./registry/index.ts";
 export type { HandlerConfig, RegisteredHandler } from "./registry/types.ts";
 
 export type {
+  CompleteSeriesPack,
+  EpisodeRangePack,
+  MediaCodecInfo,
   MediaInfo,
   MediaQualityInfo,
-  MediaCodecInfo,
+  ParseResult,
   ReleaseInfo,
   ReleaseInfoBase,
+  ReleaseInfoMovie,
   ReleaseInfoShowEpisode,
   ReleaseInfoShowSeasonPack,
-  ReleaseInfoMovie,
-  ParseResult,
+  SeasonPack,
   ShowPackInfo,
   ShowPackInfoBase,
-  SeasonPack,
-  EpisodeRangePack,
-  CompleteSeriesPack,
 } from "./types/core.ts";
 
 export type {
-  MediaInfoTrackType,
   MediaInfoTrack,
+  MediaInfoTrackType,
   StructuredMediaInfo,
 } from "./types/mediainfo.ts";
 
 export type { MediaType } from "./types/media.ts";
-export type { NFOMovieInfo, NFOShowInfo, NFOInfo } from "./types/nfo.ts";
+export type { NFOInfo, NFOMovieInfo, NFOShowInfo } from "./types/nfo.ts";

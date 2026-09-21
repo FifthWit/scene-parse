@@ -1,4 +1,4 @@
-import type { ReleaseInfo } from '../types/core.ts';
+import type { ReleaseInfo } from "../types/core.ts";
 
 export type ComparePreferences = {
   preferFOSS?: boolean;
@@ -26,21 +26,21 @@ function getResolutionRank(height: number): number {
 
 const HDR_RANK: Record<string, number> = {
   DolbyVision: 5,
-  'HDR10+': 4,
+  "HDR10+": 4,
   HDR10: 3,
   HLG: 2,
   SDR: 1,
 };
 
 const RIP_QUALITY_RANK: Record<string, number> = {
-  'WEB-DL': 10,
+  "WEB-DL": 10,
   Bluray: 9,
   WEBRip: 8,
   HDRip: 7,
   BRRip: 6,
   BDRip: 5,
-  'HD-TV': 4,
-  'SD-TV': 3,
+  "HD-TV": 4,
+  "SD-TV": 3,
   DVD: 2,
   TVRip: 1,
 };
@@ -49,9 +49,9 @@ const EDITION_RANK: Record<string, number> = {
   Remastered: 10,
   Criterion: 9,
   "Collector's Edition": 8,
-  'Ultimate Edition': 7,
-  'Special Edition': 6,
-  'Final Cut': 5,
+  "Ultimate Edition": 7,
+  "Special Edition": 6,
+  "Final Cut": 5,
   "Director's Cut": 4,
   Extended: 3,
   Unrated: 2,
@@ -165,8 +165,8 @@ export function compareReleases(
   if (diff !== 0) return diff;
 
   diff = cmp(
-    RIP_QUALITY_RANK[a.ripQuality ?? ''] ?? 0,
-    RIP_QUALITY_RANK[b.ripQuality ?? ''] ?? 0,
+    RIP_QUALITY_RANK[a.ripQuality ?? ""] ?? 0,
+    RIP_QUALITY_RANK[b.ripQuality ?? ""] ?? 0,
   );
   if (diff !== 0) return diff;
 
@@ -191,14 +191,14 @@ export function compareReleases(
   if (diff !== 0) return diff;
 
   diff = cmp(
-    RIP_QUALITY_RANK[a.ripQuality ?? ''] ?? 0,
-    RIP_QUALITY_RANK[b.ripQuality ?? ''] ?? 0,
+    RIP_QUALITY_RANK[a.ripQuality ?? ""] ?? 0,
+    RIP_QUALITY_RANK[b.ripQuality ?? ""] ?? 0,
   );
   if (diff !== 0) return diff;
 
   diff = cmp(
-    EDITION_RANK[a.edition ?? ''] ?? 0,
-    EDITION_RANK[b.edition ?? ''] ?? 0,
+    EDITION_RANK[a.edition ?? ""] ?? 0,
+    EDITION_RANK[b.edition ?? ""] ?? 0,
   );
   if (diff !== 0) return diff;
 
@@ -259,21 +259,21 @@ export function getResolutionScore(
 }
 
 const SOURCE_SCORES: Record<string, number> = {
-  'WEB-DL': 15,
+  "WEB-DL": 15,
   Bluray: 13,
   WEBRip: 11,
   HDRip: 9,
   BRRip: 7,
   BDRip: 6,
-  'HD-TV': 5,
-  'SD-TV': 3,
+  "HD-TV": 5,
+  "SD-TV": 3,
   DVD: 2,
   TVRip: 1,
 };
 
 const HDR_SCORES: Record<string, number> = {
   DolbyVision: 15,
-  'HDR10+': 12,
+  "HDR10+": 12,
   HDR10: 8,
   HLG: 4,
   SDR: 0,
@@ -291,9 +291,9 @@ const EDITION_SCORES: Record<string, number> = {
   Remastered: 5,
   Criterion: 4,
   "Collector's Edition": 4,
-  'Ultimate Edition': 3,
-  'Special Edition': 3,
-  'Final Cut': 2,
+  "Ultimate Edition": 3,
+  "Special Edition": 3,
+  "Final Cut": 2,
   "Director's Cut": 2,
   Extended: 1,
   Unrated: 1,
@@ -307,7 +307,7 @@ export function getReleaseScore(release: ReleaseInfo): number {
 
   score += HDR_SCORES[release.mediaInfo.video.HDR] ?? 0;
 
-  score += SOURCE_SCORES[release.ripQuality ?? ''] ?? 0;
+  score += SOURCE_SCORES[release.ripQuality ?? ""] ?? 0;
 
   const audioCodec = release.mediaInfo.audio.codec;
   let audioScore = 0;
@@ -317,12 +317,15 @@ export function getReleaseScore(release: ReleaseInfo): number {
   if (release.mediaInfo.audio.isAtmos) {
     audioScore += 4;
   }
-  audioScore += Math.min(4, getAudioChannelsRank(release.mediaInfo.audio.channels));
+  audioScore += Math.min(
+    4,
+    getAudioChannelsRank(release.mediaInfo.audio.channels),
+  );
   score += audioScore;
 
   score += CODEC_SCORES[release.mediaInfo.video.codec.name] ?? 1;
 
-  score += EDITION_SCORES[release.edition ?? ''] ?? 0;
+  score += EDITION_SCORES[release.edition ?? ""] ?? 0;
 
   return score;
 }

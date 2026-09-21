@@ -1,12 +1,12 @@
 import { expect } from "@std/expect";
 import { describe, it } from "@std/testing/bdd";
 import {
-  registerHandler,
-  removeHandler,
-  getHandlers,
-  getHandlersForField,
   applyHandlers,
   clearHandlers,
+  getHandlers,
+  getHandlersForField,
+  registerHandler,
+  removeHandler,
   resetHandlers,
 } from "./index.ts";
 

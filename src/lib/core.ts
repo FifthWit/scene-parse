@@ -1,40 +1,40 @@
 export {
   CODEC_DEFS,
-  getCodecByName,
   getCodecByAlias,
+  getCodecByName,
   getCodecInfo,
+  listAudioCodecNames,
   listCodecs,
   listVideoCodecNames,
-  listAudioCodecNames,
 } from "./codecs.ts";
 export type {
-  CodecType,
-  VideoCodecDef,
   AudioCodecDef,
   CodecDef,
+  CodecType,
+  VideoCodecDef,
 } from "./codecs.ts";
 
 export {
-  VIDEO_QUALITY_MAP,
   getQualityInfo,
   listQualities,
+  VIDEO_QUALITY_MAP,
 } from "./qualities.ts";
 export type { VideoQuality, VideoQualityInfo } from "./qualities.ts";
 
 export {
-  SOURCE_MAP,
-  getSourceInfo,
   getSourceByFullName,
+  getSourceInfo,
   listSources,
   listSourceShorthands,
+  SOURCE_MAP,
 } from "./sources.ts";
 export type { ReleaseSource, SourceInfo } from "./sources.ts";
 
 export {
-  HDR_TYPES_MAP,
-  HDR_PATTERNS,
   detectHDR,
   getHDRInfo,
+  HDR_PATTERNS,
+  HDR_TYPES_MAP,
   listHDRTypes,
 } from "./hdr.ts";
 export type { HDRType, HDRTypeInfo } from "./hdr.ts";
@@ -43,26 +43,27 @@ export { BROWSER_CODEC_MATRIX } from "./browser-data.ts";
 export type { BrowserCodecEntry } from "./browser-data.ts";
 
 export {
-  YEAR_PATTERN,
+  COMPLETE_PATTERN,
+  detectEdition,
+  DOLBY_ATMOS_PATTERN,
+  DUAL_AUDIO_PATTERN,
+  EDITION_MAP,
   EPISODE_PATTERN,
+  INTERNAL_PATTERN,
   MULTI_EPISODE_PATTERN,
   MULTI_EPISODE_SERIES_PATTERN,
-  SEASON_PATTERN,
-  SEASON_RANGE_PATTERN,
+  PHYSICAL_MEDIA_PATTERN,
+  PROPER_PATTERN,
+  REMUX_PATTERN,
+  REPACK_PATTERN,
+  RIP_QUALITIES,
+  SCENE_GROUP_PATTERN,
   SEASON_EPISODE_PATTERN,
   SEASON_MULTI_EPISODE_PATTERN,
   SEASON_MULTI_EPISODE_SERIES_PATTERN,
-  REMUX_PATTERN,
-  REPACK_PATTERN,
-  PROPER_PATTERN,
-  INTERNAL_PATTERN,
-  COMPLETE_PATTERN,
+  SEASON_PATTERN,
+  SEASON_RANGE_PATTERN,
   THREE_D_PATTERN,
-  DUAL_AUDIO_PATTERN,
-  DOLBY_ATMOS_PATTERN,
-  SCENE_GROUP_PATTERN,
-  EDITION_MAP,
-  RIP_QUALITIES,
-  detectEdition,
+  YEAR_PATTERN,
 } from "./regexps.ts";
 export type { EditionType, RipQuality } from "./regexps.ts";

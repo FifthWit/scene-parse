@@ -1,15 +1,15 @@
-import type { NFOInfo, NFOMovieInfo, NFOShowInfo } from '../types/nfo.ts';
+import type { NFOInfo, NFOMovieInfo, NFOShowInfo } from "../types/nfo.ts";
 
 function detectRootElement(content: string): string | undefined {
   const match = content.match(/<\s*(?:movie|episodedetails|tvshow)\b/i);
   if (!match) return undefined;
-  return match[0].replace(/[<\s>]/g, '').toLowerCase();
+  return match[0].replace(/[<\s>]/g, "").toLowerCase();
 }
 
 function stripRootTag(content: string, rootType: string): string {
   const regex = new RegExp(
     `<\\s*${rootType}\\b[^>]*>([\\s\\S]*?)<\\s*/\\s*${rootType}\\s*>`,
-    'i',
+    "i",
   );
   const match = content.match(regex);
   return match ? match[1].trim() : content;
@@ -35,7 +35,10 @@ function parseXMLTags(content: string): Record<string, string[]> {
 }
 
 function parseName(element: string): string | undefined {
-  const regex = new RegExp(`<\\s*name\\s*>([\\s\\S]*?)<\\s*/\\s*name\\s*>`, 'i');
+  const regex = new RegExp(
+    `<\\s*name\\s*>([\\s\\S]*?)<\\s*/\\s*name\\s*>`,
+    "i",
+  );
   const match = element.match(regex);
   return match ? match[1].trim() : undefined;
 }
@@ -45,52 +48,52 @@ function extractCommonFields(
 ): NFOMovieInfo {
   const info: NFOMovieInfo = {};
 
-  if (tags['title']) {
-    info.title = tags['title'][0];
+  if (tags["title"]) {
+    info.title = tags["title"][0];
   }
 
-  if (tags['year']) {
-    const y = parseInt(tags['year'][0], 10);
+  if (tags["year"]) {
+    const y = parseInt(tags["year"][0], 10);
     if (!isNaN(y)) info.year = y;
   }
 
-  if (tags['imdbid']) {
-    info.imdbId = tags['imdbid'][0];
+  if (tags["imdbid"]) {
+    info.imdbId = tags["imdbid"][0];
   }
 
-  if (tags['tmdbid']) {
-    info.tmdbId = tags['tmdbid'][0];
+  if (tags["tmdbid"]) {
+    info.tmdbId = tags["tmdbid"][0];
   }
 
-  if (tags['tvdbid']) {
-    info.tvdbId = tags['tvdbid'][0];
+  if (tags["tvdbid"]) {
+    info.tvdbId = tags["tvdbid"][0];
   }
 
-  if (tags['rating']) {
-    const r = parseFloat(tags['rating'][0]);
+  if (tags["rating"]) {
+    const r = parseFloat(tags["rating"][0]);
     if (!isNaN(r)) info.rating = r;
   }
 
-  if (tags['votes']) {
-    const v = parseInt(tags['votes'][0], 10);
+  if (tags["votes"]) {
+    const v = parseInt(tags["votes"][0], 10);
     if (!isNaN(v)) info.votes = v;
   }
 
-  if (tags['genre']) {
-    info.genre = tags['genre'];
+  if (tags["genre"]) {
+    info.genre = tags["genre"];
   }
 
-  if (tags['plot']) {
-    info.plot = tags['plot'][0];
+  if (tags["plot"]) {
+    info.plot = tags["plot"][0];
   }
 
-  if (tags['director']) {
-    info.director = tags['director'][0];
+  if (tags["director"]) {
+    info.director = tags["director"][0];
   }
 
-  if (tags['actor']) {
+  if (tags["actor"]) {
     info.cast = [];
-    for (const act of tags['actor']) {
+    for (const act of tags["actor"]) {
       const name = parseName(act);
       if (name) {
         info.cast.push(name);
@@ -98,13 +101,13 @@ function extractCommonFields(
     }
   }
 
-  if (tags['runtime']) {
-    const rt = parseInt(tags['runtime'][0], 10);
+  if (tags["runtime"]) {
+    const rt = parseInt(tags["runtime"][0], 10);
     if (!isNaN(rt)) info.runtime = rt;
   }
 
-  if (tags['premiered'] || tags['releasedate']) {
-    const dateStr = (tags['premiered'] || tags['releasedate'])[0];
+  if (tags["premiered"] || tags["releasedate"]) {
+    const dateStr = (tags["premiered"] || tags["releasedate"])[0];
     info.releaseDate = dateStr;
   }
 
@@ -112,11 +115,12 @@ function extractCommonFields(
 }
 
 function parsePlainTextNFO(content: string): NFOInfo {
-  const lines = content.split('\n').map((l) => l.trim()).filter(Boolean);
+  const lines = content.split("\n").map((l) => l.trim()).filter(Boolean);
   const info: NFOInfo & Record<string, unknown> = {};
 
   const imdbPattern = /https?:\/\/(?:www\.)?imdb\.com\/title\/(tt\d+)/i;
-  const tmdbPattern = /https?:\/\/(?:www\.)?themoviedb\.org\/(?:movie|tv)\/(\d+)/i;
+  const tmdbPattern =
+    /https?:\/\/(?:www\.)?themoviedb\.org\/(?:movie|tv)\/(\d+)/i;
   const tvdbPattern = /https?:\/\/(?:www\.)?thetvdb\.com\/.*?(?:id=|\/)(\d+)/i;
 
   for (const line of lines) {
@@ -218,29 +222,31 @@ export function parseNFO(content: string): NFOInfo {
   const tags = parseXMLTags(innerContent);
   const commonFields = extractCommonFields(tags);
 
-  if (rootType === 'episodedetails' || rootType === 'tvshow') {
+  if (rootType === "episodedetails" || rootType === "tvshow") {
     const showInfo: NFOShowInfo = { ...commonFields };
 
-    if (tags['season']) {
-      const s = parseInt(tags['season'][0], 10);
+    if (tags["season"]) {
+      const s = parseInt(tags["season"][0], 10);
       if (!isNaN(s)) showInfo.season = s;
     }
 
-    if (tags['episode']) {
-      const e = parseInt(tags['episode'][0], 10);
+    if (tags["episode"]) {
+      const e = parseInt(tags["episode"][0], 10);
       if (!isNaN(e)) showInfo.episode = e;
     }
 
-    if (tags['episodetitle']) {
-      showInfo.episodeTitle = tags['episodetitle'][0];
-    } else if (rootType === 'episodedetails' && tags['title']) {
-      showInfo.episodeTitle = tags['title'][0];
+    if (tags["episodetitle"]) {
+      showInfo.episodeTitle = tags["episodetitle"][0];
+    } else if (rootType === "episodedetails" && tags["title"]) {
+      showInfo.episodeTitle = tags["title"][0];
     }
 
-    if (tags['seriestitle'] || tags['showtitle']) {
-      showInfo.seriesTitle = (tags['seriestitle'] || tags['showtitle'])[0];
-    } else if (rootType === 'episodedetails' && tags['title'] && tags['title'].length > 1) {
-      showInfo.seriesTitle = tags['title'][1];
+    if (tags["seriestitle"] || tags["showtitle"]) {
+      showInfo.seriesTitle = (tags["seriestitle"] || tags["showtitle"])[0];
+    } else if (
+      rootType === "episodedetails" && tags["title"] && tags["title"].length > 1
+    ) {
+      showInfo.seriesTitle = tags["title"][1];
     }
 
     return showInfo;

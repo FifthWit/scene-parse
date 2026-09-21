@@ -1,21 +1,26 @@
-import type { ShowPackInfo, MediaInfo, MediaCodecInfo, MediaQualityInfo } from '../types/core.ts';
-import type { HDRType } from '../lib/core.ts';
+import type {
+  MediaCodecInfo,
+  MediaInfo,
+  MediaQualityInfo,
+  ShowPackInfo,
+} from "../types/core.ts";
+import type { HDRType } from "../lib/core.ts";
 import {
   CODEC_DEFS,
-  VIDEO_QUALITY_MAP,
-  SOURCE_MAP,
-  RIP_QUALITIES,
-  detectHDR,
-  detectEdition,
-  YEAR_PATTERN,
   COMPLETE_PATTERN,
-  THREE_D_PATTERN,
-  DUAL_AUDIO_PATTERN,
+  detectEdition,
+  detectHDR,
   DOLBY_ATMOS_PATTERN,
+  DUAL_AUDIO_PATTERN,
+  RIP_QUALITIES,
   SEASON_PATTERN,
   SEASON_RANGE_PATTERN,
-} from '../lib/core.ts';
-import { parseTitle } from './parseTitle.ts';
+  SOURCE_MAP,
+  THREE_D_PATTERN,
+  VIDEO_QUALITY_MAP,
+  YEAR_PATTERN,
+} from "../lib/core.ts";
+import { parseTitle } from "./parseTitle.ts";
 
 const videoCodecMap: Record<string, (typeof CODEC_DEFS.video)[number]> = {};
 const audioCodecMap: Record<string, (typeof CODEC_DEFS.audio)[number]> = {};
@@ -34,9 +39,9 @@ for (const codec of CODEC_DEFS.audio) {
 }
 
 const CHANNEL_PATTERNS: Record<string, RegExp> = {
-  '2.0': /^(?:2\.0|2ch|Stereo)$/i,
-  '5.1': /^(?:5\.1|6ch)$/i,
-  '7.1': /^(?:7\.1|8ch)$/i,
+  "2.0": /^(?:2\.0|2ch|Stereo)$/i,
+  "5.1": /^(?:5\.1|6ch)$/i,
+  "7.1": /^(?:7\.1|8ch)$/i,
 };
 
 function detectChannels(token: string): string | undefined {
@@ -46,7 +51,7 @@ function detectChannels(token: string): string | undefined {
   return undefined;
 }
 
-const ENCODE_TAGS = new Set(['x264', 'x265']);
+const ENCODE_TAGS = new Set(["x264", "x265"]);
 
 function tryMatchCompoundCodec(
   tokens: string[],
@@ -55,12 +60,12 @@ function tryMatchCompoundCodec(
 ): { codec: unknown; consumed: number; matched: string } | null {
   for (let len = 1; len <= 3 && start + len <= tokens.length; len++) {
     const slice = tokens.slice(start, start + len);
-    const dotted = slice.join('.').toLowerCase();
+    const dotted = slice.join(".").toLowerCase();
     if (dotted in lookup) {
       return { codec: lookup[dotted], consumed: len, matched: dotted };
     }
     if (len > 1) {
-      const joined = slice.join('').toLowerCase();
+      const joined = slice.join("").toLowerCase();
       if (joined in lookup) {
         return { codec: lookup[joined], consumed: len, matched: joined };
       }
@@ -70,19 +75,20 @@ function tryMatchCompoundCodec(
 }
 
 export function parseShowPack(title: string): ShowPackInfo {
-  const tokens = title.split('.');
+  const tokens = title.split(".");
 
   const titleTokens: string[] = [];
   const metadataTokens: string[] = [];
-  let packType: 'season-pack' | 'episode-range' | 'complete-series' | null = null;
+  let packType: "season-pack" | "episode-range" | "complete-series" | null =
+    null;
   const seasonSet = new Set<number>();
   let epSeason: number | null = null;
   const episodeList: number[] = [];
   let expectingSeasonNumber = false;
 
   for (const token of tokens) {
-    if (token.toLowerCase() === 'season' && packType === null) {
-      packType = 'season-pack';
+    if (token.toLowerCase() === "season" && packType === null) {
+      packType = "season-pack";
       expectingSeasonNumber = true;
       continue;
     }
@@ -97,7 +103,7 @@ export function parseShowPack(title: string): ShowPackInfo {
     }
 
     if (COMPLETE_PATTERN.test(token)) {
-      packType = 'complete-series';
+      packType = "complete-series";
       continue;
     }
 
@@ -106,7 +112,7 @@ export function parseShowPack(title: string): ShowPackInfo {
       const start = parseInt(seasonRangeMatch[1], 10);
       const end = parseInt(seasonRangeMatch[2], 10);
       for (let s = start; s <= end; s++) seasonSet.add(s);
-      packType = 'season-pack';
+      packType = "season-pack";
       continue;
     }
 
@@ -116,14 +122,14 @@ export function parseShowPack(title: string): ShowPackInfo {
       const epStart = parseInt(epRangeMatch[2], 10);
       const epEnd = parseInt(epRangeMatch[3], 10);
       for (let e = epStart; e <= epEnd; e++) episodeList.push(e);
-      packType = 'episode-range';
+      packType = "episode-range";
       continue;
     }
 
     const seasonMatch = token.match(SEASON_PATTERN);
     if (seasonMatch) {
       seasonSet.add(parseInt(seasonMatch[1], 10));
-      packType = 'season-pack';
+      packType = "season-pack";
       continue;
     }
 
@@ -141,7 +147,7 @@ export function parseShowPack(title: string): ShowPackInfo {
   let qualityInfo: MediaQualityInfo | undefined;
   let group: string | undefined;
   let year: number | undefined;
-  let hdr: HDRType = 'SDR';
+  let hdr: HDRType = "SDR";
   let edition: ReturnType<typeof detectEdition> | undefined;
   let is3D: boolean | undefined;
   let isAtmos: boolean | undefined;
@@ -153,14 +159,22 @@ export function parseShowPack(title: string): ShowPackInfo {
   while (k < metadataTokens.length) {
     const token = metadataTokens[k];
 
-    const compoundVideo = tryMatchCompoundCodec(metadataTokens, k, videoCodecMap);
+    const compoundVideo = tryMatchCompoundCodec(
+      metadataTokens,
+      k,
+      videoCodecMap,
+    );
     if (compoundVideo) {
       videoCodec = compoundVideo.codec as typeof videoCodec;
       isEncode = ENCODE_TAGS.has(compoundVideo.matched);
       k += compoundVideo.consumed;
       continue;
     }
-    const compoundAudio = tryMatchCompoundCodec(metadataTokens, k, audioCodecMap);
+    const compoundAudio = tryMatchCompoundCodec(
+      metadataTokens,
+      k,
+      audioCodecMap,
+    );
     if (compoundAudio) {
       audioCodec = compoundAudio.codec as typeof audioCodec;
       k += compoundAudio.consumed;
@@ -249,8 +263,8 @@ export function parseShowPack(title: string): ShowPackInfo {
       continue;
     }
 
-    if (token.includes('-')) {
-      const lastDash = token.lastIndexOf('-');
+    if (token.includes("-")) {
+      const lastDash = token.lastIndexOf("-");
       const possibleCodec = token.substring(0, lastDash).toLowerCase();
       const possibleGroup = token.substring(lastDash + 1);
 
@@ -268,7 +282,7 @@ export function parseShowPack(title: string): ShowPackInfo {
         continue;
       }
 
-      if (token.startsWith('-')) {
+      if (token.startsWith("-")) {
         group = token.slice(1);
         k++;
         continue;
@@ -280,14 +294,29 @@ export function parseShowPack(title: string): ShowPackInfo {
 
   const mediaInfo: MediaInfo = {
     video: {
-      quality: qualityInfo ?? { width: 0, height: 0, full: 'unknown', aspectRatio: 'unknown' },
-      codec: videoCodec ?? { name: 'unknown', aliases: [], codecType: 'video', foss: false, lossy: true },
+      quality: qualityInfo ??
+        { width: 0, height: 0, full: "unknown", aspectRatio: "unknown" },
+      codec: videoCodec ??
+        {
+          name: "unknown",
+          aliases: [],
+          codecType: "video",
+          foss: false,
+          lossy: true,
+        },
       HDR: hdr,
       ...(is3D !== undefined ? { is3D } : {}),
       ...(isEncode !== undefined ? { isEncode } : {}),
     },
     audio: {
-      codec: audioCodec ?? { name: 'unknown', aliases: [], codecType: 'audio', foss: false, lossy: true },
+      codec: audioCodec ??
+        {
+          name: "unknown",
+          aliases: [],
+          codecType: "audio",
+          foss: false,
+          lossy: true,
+        },
       lang: undefined,
       ...(channels !== undefined ? { channels } : {}),
       ...(isAtmos !== undefined ? { isAtmos } : {}),
@@ -296,7 +325,7 @@ export function parseShowPack(title: string): ShowPackInfo {
   };
 
   const base = {
-    title: titleTokens.join(' '),
+    title: titleTokens.join(" "),
     mediaInfo,
     group,
     ...(source !== undefined ? { source } : {}),
@@ -305,22 +334,22 @@ export function parseShowPack(title: string): ShowPackInfo {
     ...(edition !== undefined ? { edition } : {}),
   };
 
-  if (packType === 'complete-series') {
-    return { type: 'complete-series', ...base };
+  if (packType === "complete-series") {
+    return { type: "complete-series", ...base };
   }
 
-  if (packType === 'episode-range') {
+  if (packType === "episode-range") {
     return {
-      type: 'episode-range',
+      type: "episode-range",
       ...base,
       season: epSeason ?? 1,
       episodes: episodeList,
     };
   }
 
-  if (packType === 'season-pack') {
+  if (packType === "season-pack") {
     const sortedSeasons = [...seasonSet].sort((a, b) => a - b);
-    return { type: 'season-pack', ...base, seasons: sortedSeasons };
+    return { type: "season-pack", ...base, seasons: sortedSeasons };
   }
 
   const result = parseTitle(title);
@@ -328,22 +357,24 @@ export function parseShowPack(title: string): ShowPackInfo {
     title: result.title,
     mediaInfo: result.mediaInfo,
     ...(result.source !== undefined ? { source: result.source } : {}),
-    ...(result.ripQuality !== undefined ? { ripQuality: result.ripQuality } : {}),
+    ...(result.ripQuality !== undefined
+      ? { ripQuality: result.ripQuality }
+      : {}),
     ...(result.group !== undefined ? { group: result.group } : {}),
     ...(result.year !== undefined ? { year: result.year } : {}),
     ...(result.edition !== undefined ? { edition: result.edition } : {}),
   };
 
-  if (result.type === 'show') {
+  if (result.type === "show") {
     return {
-      type: 'season-pack',
+      type: "season-pack",
       ...fallbackBase,
       seasons: [result.season],
     };
   }
 
   return {
-    type: 'season-pack',
+    type: "season-pack",
     ...fallbackBase,
     seasons: [1],
   };

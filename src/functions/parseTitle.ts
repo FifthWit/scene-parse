@@ -1,31 +1,32 @@
 import type {
-  ParseResult,
-  MediaInfo,
   MediaCodecInfo,
+  MediaInfo,
   MediaQualityInfo,
+  ParseResult,
 } from "../types/core.ts";
 import { applyHandlers } from "../registry/index.ts";
 import {
   CODEC_DEFS,
-  VIDEO_QUALITY_MAP,
-  SOURCE_MAP,
-  RIP_QUALITIES,
-  detectHDR,
-  detectEdition,
-  YEAR_PATTERN,
-  REMUX_PATTERN,
-  REPACK_PATTERN,
-  PROPER_PATTERN,
-  INTERNAL_PATTERN,
   COMPLETE_PATTERN,
-  THREE_D_PATTERN,
-  DUAL_AUDIO_PATTERN,
+  detectEdition,
+  detectHDR,
   DOLBY_ATMOS_PATTERN,
+  DUAL_AUDIO_PATTERN,
+  INTERNAL_PATTERN,
   MULTI_EPISODE_PATTERN,
   MULTI_EPISODE_SERIES_PATTERN,
+  PHYSICAL_MEDIA_PATTERN,
+  PROPER_PATTERN,
+  REMUX_PATTERN,
+  REPACK_PATTERN,
+  RIP_QUALITIES,
   SEASON_EPISODE_PATTERN,
   SEASON_MULTI_EPISODE_PATTERN,
   SEASON_MULTI_EPISODE_SERIES_PATTERN,
+  SOURCE_MAP,
+  THREE_D_PATTERN,
+  VIDEO_QUALITY_MAP,
+  YEAR_PATTERN,
 } from "../lib/core.ts";
 import type { HDRType } from "../lib/core.ts";
 
@@ -101,8 +102,22 @@ function parseMultiEpisodeSeries(token: string): number[] | null {
   return null;
 }
 
+function guessDelimiter(title: string): "." | " " {
+  const sanitized = title
+    .replace(/(\d)\.(\d)/g, "$1$2") // 5.1 -> 51
+    .replace(/\bH\.264\b/gi, "H264")
+    .replace(/\bH\.265\b/gi, "H265");
+
+  const dotCount = (sanitized.match(/\./g) ?? []).length;
+  const spaceCount = (sanitized.match(/ /g) ?? []).length;
+
+  if (dotCount === 0 && spaceCount === 0) return ".";
+  return dotCount > spaceCount ? "." : " ";
+}
+
 export function parseTitle(title: string): ParseResult {
-  const tokens = title.split(".");
+  const delimiter = guessDelimiter(title);
+  const tokens = title.split(delimiter).filter((t) => t.length > 0);
 
   let type: "show" | "movie" = "movie";
   let season: number | undefined;
@@ -126,6 +141,7 @@ export function parseTitle(title: string): ParseResult {
   let isDual: boolean | undefined;
   let channels: string | undefined;
   let isEncode: boolean | undefined;
+  const isPhysicalMedia: boolean = PHYSICAL_MEDIA_PATTERN.test(title)
 
   const warnings: string[] = [];
   const titleTokens: string[] = [];
@@ -256,7 +272,11 @@ export function parseTitle(title: string): ParseResult {
     }
 
     const lowerRip = token.toLowerCase();
-    if ((RIP_QUALITIES as readonly string[]).some((r) => r.toLowerCase() === lowerRip)) {
+    if (
+      (RIP_QUALITIES as readonly string[]).some((r) =>
+        r.toLowerCase() === lowerRip
+      )
+    ) {
       ripQuality = token as (typeof RIP_QUALITIES)[number];
       titleEnded = true;
       i++;
@@ -408,7 +428,7 @@ export function parseTitle(title: string): ParseResult {
   if (missingAudioCodec) {
     warnings.push(`Could not detect audio codec from: "${title}"`);
   }
-  if (missingSource) {
+  if (missingSource && !isPhysicalMedia) {
     warnings.push(`Could not detect source from: "${title}"`);
   }
   if (missingRipQuality) {

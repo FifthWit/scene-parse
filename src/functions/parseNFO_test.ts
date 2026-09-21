@@ -1,16 +1,16 @@
-import { expect } from '@std/expect';
-import { describe, it } from '@std/testing/bdd';
-import { parseNFO } from './parseNFO.ts';
-import type { NFOShowInfo } from '../types/nfo.ts';
+import { expect } from "@std/expect";
+import { describe, it } from "@std/testing/bdd";
+import { parseNFO } from "./parseNFO.ts";
+import type { NFOShowInfo } from "../types/nfo.ts";
 
-describe('parseNFO', () => {
-  it('returns empty object for empty content', () => {
-    expect(parseNFO('')).toEqual({});
-    expect(parseNFO('   ')).toEqual({});
+describe("parseNFO", () => {
+  it("returns empty object for empty content", () => {
+    expect(parseNFO("")).toEqual({});
+    expect(parseNFO("   ")).toEqual({});
   });
 
-  describe('movie XML format', () => {
-    it('parses basic movie fields', () => {
+  describe("movie XML format", () => {
+    it("parses basic movie fields", () => {
       const nfo = `
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <movie>
@@ -20,13 +20,13 @@ describe('parseNFO', () => {
   <rating>8.8</rating>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.title).toBe('Inception');
+      expect(result.title).toBe("Inception");
       expect(result.year).toBe(2010);
-      expect(result.imdbId).toBe('tt1375666');
+      expect(result.imdbId).toBe("tt1375666");
       expect(result.rating).toBe(8.8);
     });
 
-    it('parses genres', () => {
+    it("parses genres", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
@@ -35,20 +35,20 @@ describe('parseNFO', () => {
   <genre>Thriller</genre>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.genre).toEqual(['Action', 'Sci-Fi', 'Thriller']);
+      expect(result.genre).toEqual(["Action", "Sci-Fi", "Thriller"]);
     });
 
-    it('parses director', () => {
+    it("parses director", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
   <director>Christopher Nolan</director>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.director).toBe('Christopher Nolan');
+      expect(result.director).toBe("Christopher Nolan");
     });
 
-    it('parses plot', () => {
+    it("parses plot", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
@@ -56,11 +56,11 @@ describe('parseNFO', () => {
 </movie>`;
       const result = parseNFO(nfo);
       expect(result.plot).toBe(
-        'A thief who steals corporate secrets through dream-sharing technology.',
+        "A thief who steals corporate secrets through dream-sharing technology.",
       );
     });
 
-    it('parses actors', () => {
+    it("parses actors", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
@@ -74,10 +74,13 @@ describe('parseNFO', () => {
   </actor>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.cast).toEqual(['Leonardo DiCaprio', 'Joseph Gordon-Levitt']);
+      expect(result.cast).toEqual([
+        "Leonardo DiCaprio",
+        "Joseph Gordon-Levitt",
+      ]);
     });
 
-    it('parses runtime', () => {
+    it("parses runtime", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
@@ -87,7 +90,7 @@ describe('parseNFO', () => {
       expect(result.runtime).toBe(148);
     });
 
-    it('parses tmdbId and tvdbId', () => {
+    it("parses tmdbId and tvdbId", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
@@ -95,11 +98,11 @@ describe('parseNFO', () => {
   <tvdbid>12345</tvdbid>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.tmdbId).toBe('27205');
-      expect(result.tvdbId).toBe('12345');
+      expect(result.tmdbId).toBe("27205");
+      expect(result.tvdbId).toBe("12345");
     });
 
-    it('parses votes', () => {
+    it("parses votes", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
@@ -109,40 +112,40 @@ describe('parseNFO', () => {
       expect(result.votes).toBe(2500000);
     });
 
-    it('parses release date from premiered', () => {
+    it("parses release date from premiered", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
   <premiered>2010-07-16</premiered>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.releaseDate).toBe('2010-07-16');
+      expect(result.releaseDate).toBe("2010-07-16");
     });
 
-    it('parses release date from releasedate', () => {
+    it("parses release date from releasedate", () => {
       const nfo = `
 <movie>
   <title>Inception</title>
   <releasedate>2010-07-16</releasedate>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.releaseDate).toBe('2010-07-16');
+      expect(result.releaseDate).toBe("2010-07-16");
     });
 
-    it('handles tag case insensitivity', () => {
+    it("handles tag case insensitivity", () => {
       const nfo = `
 <MOVIE>
   <TITLE>Inception</TITLE>
   <YEAR>2010</YEAR>
 </MOVIE>`;
       const result = parseNFO(nfo);
-      expect(result.title).toBe('Inception');
+      expect(result.title).toBe("Inception");
       expect(result.year).toBe(2010);
     });
   });
 
-  describe('episodedetails XML format', () => {
-    it('parses episode fields', () => {
+  describe("episodedetails XML format", () => {
+    it("parses episode fields", () => {
       const nfo = `
 <episodedetails>
   <title>Pilot</title>
@@ -152,14 +155,14 @@ describe('parseNFO', () => {
   <rating>8.5</rating>
 </episodedetails>`;
       const result = parseNFO(nfo) as NFOShowInfo;
-      expect(result.title).toBe('Pilot');
+      expect(result.title).toBe("Pilot");
       expect(result.season).toBe(1);
       expect(result.episode).toBe(1);
-      expect(result.imdbId).toBe('tt0959621');
+      expect(result.imdbId).toBe("tt0959621");
       expect(result.rating).toBe(8.5);
     });
 
-    it('parses episode title from episodetitle tag', () => {
+    it("parses episode title from episodetitle tag", () => {
       const nfo = `
 <episodedetails>
   <title>Pilot</title>
@@ -168,10 +171,10 @@ describe('parseNFO', () => {
   <episode>1</episode>
 </episodedetails>`;
       const result = parseNFO(nfo) as NFOShowInfo;
-      expect(result.episodeTitle).toBe('Pilot');
+      expect(result.episodeTitle).toBe("Pilot");
     });
 
-    it('parses series title from showtitle', () => {
+    it("parses series title from showtitle", () => {
       const nfo = `
 <episodedetails>
   <title>Pilot</title>
@@ -180,10 +183,10 @@ describe('parseNFO', () => {
   <episode>1</episode>
 </episodedetails>`;
       const result = parseNFO(nfo) as NFOShowInfo;
-      expect(result.seriesTitle).toBe('Breaking Bad');
+      expect(result.seriesTitle).toBe("Breaking Bad");
     });
 
-    it('parses full episode details', () => {
+    it("parses full episode details", () => {
       const nfo = `
 <episodedetails>
   <title>Pilot</title>
@@ -199,20 +202,20 @@ describe('parseNFO', () => {
   <runtime>58</runtime>
 </episodedetails>`;
       const result = parseNFO(nfo) as NFOShowInfo;
-      expect(result.title).toBe('Pilot');
-      expect(result.seriesTitle).toBe('Breaking Bad');
+      expect(result.title).toBe("Pilot");
+      expect(result.seriesTitle).toBe("Breaking Bad");
       expect(result.season).toBe(1);
       expect(result.episode).toBe(1);
       expect(result.year).toBe(2008);
       expect(result.rating).toBe(9.0);
-      expect(result.genre).toEqual(['Drama', 'Crime']);
-      expect(result.director).toBe('Vince Gilligan');
+      expect(result.genre).toEqual(["Drama", "Crime"]);
+      expect(result.director).toBe("Vince Gilligan");
       expect(result.runtime).toBe(58);
     });
   });
 
-  describe('tvshow XML format', () => {
-    it('parses tvshow fields', () => {
+  describe("tvshow XML format", () => {
+    it("parses tvshow fields", () => {
       const nfo = `
 <tvshow>
   <title>Breaking Bad</title>
@@ -222,64 +225,67 @@ describe('parseNFO', () => {
   <genre>Drama</genre>
 </tvshow>`;
       const result = parseNFO(nfo);
-      expect(result.title).toBe('Breaking Bad');
+      expect(result.title).toBe("Breaking Bad");
       expect(result.year).toBe(2008);
-      expect(result.imdbId).toBe('tt0903747');
+      expect(result.imdbId).toBe("tt0903747");
       expect(result.rating).toBe(9.5);
-      expect(result.genre).toEqual(['Drama']);
+      expect(result.genre).toEqual(["Drama"]);
     });
   });
 
-  describe('plain text NFO', () => {
-    it('parses IMDB URL', () => {
+  describe("plain text NFO", () => {
+    it("parses IMDB URL", () => {
       const nfo = `IMDB: https://www.imdb.com/title/tt1375666/`;
       const result = parseNFO(nfo);
-      expect(result.imdbId).toBe('tt1375666');
+      expect(result.imdbId).toBe("tt1375666");
     });
 
-    it('parses title and year from plain text', () => {
+    it("parses title and year from plain text", () => {
       const nfo = `
 Title: Inception
 Year: 2010
 Rating: 8.8
 `;
       const result = parseNFO(nfo);
-      expect(result.title).toBe('Inception');
+      expect(result.title).toBe("Inception");
       expect(result.year).toBe(2010);
       expect(result.rating).toBe(8.8);
     });
 
-    it('parses genre', () => {
+    it("parses genre", () => {
       const nfo = `
 Title: Inception
 Genre: Action
 Genre: Sci-Fi
 `;
       const result = parseNFO(nfo);
-      expect(result.genre).toEqual(['Action', 'Sci-Fi']);
+      expect(result.genre).toEqual(["Action", "Sci-Fi"]);
     });
 
-    it('parses director and cast', () => {
+    it("parses director and cast", () => {
       const nfo = `
 Director: Christopher Nolan
 Cast: Leonardo DiCaprio
 Cast: Joseph Gordon-Levitt
 `;
       const result = parseNFO(nfo);
-      expect(result.director).toBe('Christopher Nolan');
-      expect(result.cast).toEqual(['Leonardo DiCaprio', 'Joseph Gordon-Levitt']);
+      expect(result.director).toBe("Christopher Nolan");
+      expect(result.cast).toEqual([
+        "Leonardo DiCaprio",
+        "Joseph Gordon-Levitt",
+      ]);
     });
 
-    it('parses plot', () => {
+    it("parses plot", () => {
       const nfo = `
 Title: Inception
 Plot: A thief who steals corporate secrets.
 `;
       const result = parseNFO(nfo);
-      expect(result.plot).toBe('A thief who steals corporate secrets.');
+      expect(result.plot).toBe("A thief who steals corporate secrets.");
     });
 
-    it('parses season and episode from plain text', () => {
+    it("parses season and episode from plain text", () => {
       const nfo = `
 Title: Pilot
 Season: 1
@@ -290,7 +296,7 @@ Episode: 1
       expect(result.episode).toBe(1);
     });
 
-    it('parses runtime', () => {
+    it("parses runtime", () => {
       const nfo = `
 Title: Inception
 Runtime: 148
@@ -299,31 +305,31 @@ Runtime: 148
       expect(result.runtime).toBe(148);
     });
 
-    it('parses TMDB URL', () => {
+    it("parses TMDB URL", () => {
       const nfo = `TMDB: https://www.themoviedb.org/movie/27205`;
       const result = parseNFO(nfo);
-      expect(result.tmdbId).toBe('27205');
+      expect(result.tmdbId).toBe("27205");
     });
 
-    it('parses TVDB URL', () => {
+    it("parses TVDB URL", () => {
       const nfo = `TVDB: https://www.thetvdb.com/?tab=series&id=12345`;
       const result = parseNFO(nfo);
-      expect(result.tvdbId).toBe('12345');
+      expect(result.tvdbId).toBe("12345");
     });
   });
 
-  describe('edge cases', () => {
-    it('handles self-closing tags', () => {
+  describe("edge cases", () => {
+    it("handles self-closing tags", () => {
       const nfo = `
 <movie>
   <title>Test</title>
   <genre />
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.title).toBe('Test');
+      expect(result.title).toBe("Test");
     });
 
-    it('handles whitespace in XML', () => {
+    it("handles whitespace in XML", () => {
       const nfo = `
 <movie>
   <title>
@@ -334,17 +340,17 @@ Runtime: 148
   </year>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.title).toBe('Inception');
+      expect(result.title).toBe("Inception");
       expect(result.year).toBe(2010);
     });
 
-    it('handles XML with attributes on root elements', () => {
+    it("handles XML with attributes on root elements", () => {
       const nfo = `
 <movie version="1.0">
   <title>Inception</title>
 </movie>`;
       const result = parseNFO(nfo);
-      expect(result.title).toBe('Inception');
+      expect(result.title).toBe("Inception");
     });
   });
 });

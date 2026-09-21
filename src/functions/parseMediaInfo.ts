@@ -273,8 +273,9 @@ function parseJsonTrack(rawTrack: Record<string, unknown>): MediaInfoTrack {
   const raw: Record<string, string> = {};
 
   for (const [key, value] of Object.entries(rawTrack)) {
-    raw[key] =
-      typeof value === "object" ? JSON.stringify(value) : String(value ?? "");
+    raw[key] = typeof value === "object"
+      ? JSON.stringify(value)
+      : String(value ?? "");
   }
 
   const track: MediaInfoTrack = { type: type as MediaInfoTrackType, raw };

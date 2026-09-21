@@ -12,7 +12,7 @@ export function validateTitle(title: string): ValidationResult {
   try {
     const result = parseTitle(title);
     const missingWarnings = result.warnings.filter((w) =>
-      w.startsWith("Could not detect"),
+      w.startsWith("Could not detect")
     );
     return {
       isValid: missingWarnings.length === 0,
