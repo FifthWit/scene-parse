@@ -9,7 +9,7 @@ export const CODEC_DEFS = {
     },
     {
       name: "h265",
-      aliases: ["x265"] as string[],
+      aliases: ["x265", "HEVC"] as string[],
       codecType: "video",
       foss: false,
       lossy: true,
