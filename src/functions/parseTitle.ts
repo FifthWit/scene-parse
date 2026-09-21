@@ -157,7 +157,23 @@ export function parseTitle(title: string): ParseResult {
 
   let i = 0;
   while (i < tokens.length) {
-    const token = tokens[i];
+    let token = tokens[i];
+
+
+    if (
+      group === undefined &&
+      i === tokens.length - 1 &&
+      token.includes("-") &&
+      !token.startsWith("-")
+    ) {
+      const lastDash = token.lastIndexOf("-");
+      const prefix = token.slice(0, lastDash);
+      const suffix = token.slice(lastDash + 1);
+      if (prefix.length > 0 && suffix.length > 0) {
+        group = suffix;
+        token = prefix;
+      }
+    }
 
     const compoundVideo = tryMatchCompoundCodec(tokens, i, videoCodecMap);
     if (compoundVideo) {

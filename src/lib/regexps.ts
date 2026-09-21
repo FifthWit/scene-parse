@@ -1,14 +1,14 @@
 export const YEAR_PATTERN = /^(?:19|20)\d{2}$/;
-export const EPISODE_PATTERN = /^E(\d{1,3})$/i;
-export const MULTI_EPISODE_PATTERN = /^E(\d{1,3})-E(\d{1,3})$/i;
-export const MULTI_EPISODE_SERIES_PATTERN = /^E(\d{1,3})(E\d{1,3})+$/i;
-export const SEASON_PATTERN = /^S(\d{1,2})$/i;
-export const SEASON_RANGE_PATTERN = /^S(\d{1,2})-S(\d{1,2})$/i;
-export const SEASON_EPISODE_PATTERN = /^S(\d{1,2})E(\d{1,3})$/i;
+export const EPISODE_PATTERN = /^E(\d{1,4})$/i;
+export const MULTI_EPISODE_PATTERN = /^E(\d{1,4})-E(\d{1,4})$/i;
+export const MULTI_EPISODE_SERIES_PATTERN = /^E(\d{1,4})(E\d{1,4})+$/i;
+export const SEASON_PATTERN = /^S(\d{1,3})$/i;
+export const SEASON_RANGE_PATTERN = /^S(\d{1,3})-S(\d{1,2})$/i;
+export const SEASON_EPISODE_PATTERN = /^S(\d{1,3})E(\d{1,4})$/i;
 export const SEASON_MULTI_EPISODE_PATTERN =
-  /^S(\d{1,2})E(\d{1,3})-E(\d{1,3})$/i;
+  /^S(\d{1,3})E(\d{1,4})-E(\d{1,4})$/i;
 export const SEASON_MULTI_EPISODE_SERIES_PATTERN =
-  /^S(\d{1,2})E(\d{1,3})(E\d{1,3})+$/i;
+  /^S(\d{1,3})E(\d{1,4})(E\d{1,4})+$/i;
 export const REMUX_PATTERN = /^REMUX$/i;
 export const REPACK_PATTERN = /^REPACK$/i;
 export const PROPER_PATTERN = /^PROPER$/i;
@@ -38,6 +38,7 @@ export type EditionType = keyof typeof EDITION_MAP;
 
 export const RIP_QUALITIES = [
   "SD-TV",
+  "WEB",
   "WEB-DL",
   "WEBRip",
   "DVD",

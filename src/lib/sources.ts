@@ -48,6 +48,7 @@ export const SOURCE_MAP = {
   DIRECTV: { shorthand: "DIRECTV", full: "DirecTV Stream" },
   XFINITY: { shorthand: "XFINITY", full: "Xfinity Stream" },
   SPECTRUM: { shorthand: "SPECTRUM", full: "Spectrum TV" },
+  TNT: { shorthand: "TNT", full: "Turner Network Television" },
 } as const;
 
 export type ReleaseSource = keyof typeof SOURCE_MAP;
