@@ -67,20 +67,28 @@ function tryMatchCompoundCodec<T>(
   tokens: string[],
   start: number,
   lookup: Record<string, T>,
-): { codec: T; consumed: number; matched: string } | null {
+): { codec: T; consumed: number; matched: string; group?: string } | null {
   for (let len = 1; len <= 3 && start + len <= tokens.length; len++) {
-    const slice = tokens.slice(start, start + len);
+    const slice = [...tokens.slice(start, start + len)];
+    let group: string | undefined;
+
+    // Peel a trailing "-GROUP" off the last token before joining, so
+    // "H" + "264-Kitsune" can still resolve to "h264" with group "Kitsune".
+    const last = slice[slice.length - 1];
+    const dashIdx = last.lastIndexOf("-");
+    if (dashIdx > 0) {
+      group = last.slice(dashIdx + 1);
+      slice[slice.length - 1] = last.slice(0, dashIdx);
+    }
+
     const dotted = slice.join(".").toLowerCase();
     if (dotted in lookup) {
-      return { codec: lookup[dotted], consumed: len, matched: dotted };
+      return { codec: lookup[dotted], consumed: len, matched: dotted, group };
     }
-    // Titles are split on ".", so a literal dot inside a tag (e.g. "H.264")
-    // ends up split across tokens too ("H", "264"). Try rejoining without a
-    // separator so those still resolve to the underlying codec.
     if (len > 1) {
       const joined = slice.join("").toLowerCase();
       if (joined in lookup) {
-        return { codec: lookup[joined], consumed: len, matched: joined };
+        return { codec: lookup[joined], consumed: len, matched: joined, group };
       }
     }
   }
@@ -141,7 +149,7 @@ export function parseTitle(title: string): ParseResult {
   let isDual: boolean | undefined;
   let channels: string | undefined;
   let isEncode: boolean | undefined;
-  const isPhysicalMedia: boolean = PHYSICAL_MEDIA_PATTERN.test(title)
+  const isPhysicalMedia: boolean = PHYSICAL_MEDIA_PATTERN.test(title);
 
   const warnings: string[] = [];
   const titleTokens: string[] = [];
@@ -155,10 +163,14 @@ export function parseTitle(title: string): ParseResult {
     if (compoundVideo) {
       videoCodec = compoundVideo.codec;
       isEncode = ENCODE_TAGS.has(compoundVideo.matched);
+      if (compoundVideo.group && group === undefined) {
+        group = compoundVideo.group;
+      }
       i += compoundVideo.consumed;
       titleEnded = true;
       continue;
     }
+
     const compoundAudio = tryMatchCompoundCodec(tokens, i, audioCodecMap);
     if (compoundAudio) {
       audioCodec = compoundAudio.codec;
@@ -481,6 +493,7 @@ export function parseTitle(title: string): ParseResult {
     ...(isRepack !== undefined ? { isRepack } : {}),
     ...(isProper !== undefined ? { isProper } : {}),
     ...(isInternal !== undefined ? { isInternal } : {}),
+    isPhysicalMedia,
   };
 
   const customFields = applyHandlers(title, {});

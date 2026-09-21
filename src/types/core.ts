@@ -56,6 +56,7 @@ type ReleaseInfoBase = {
   isRepack?: boolean;
   isProper?: boolean;
   isInternal?: boolean;
+  isPhysicalMedia?: boolean;
 };
 
 type ReleaseInfoShowEpisode = {
