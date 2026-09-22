@@ -85,7 +85,9 @@ function resolveCodecKey<T>(
   if (key in lookup) return { codec: lookup[key], matchedKey: key };
   if (key.includes(".")) {
     const stripped = key.replace(/\./g, "");
-    if (stripped in lookup) return { codec: lookup[stripped], matchedKey: stripped };
+    if (stripped in lookup) {
+      return { codec: lookup[stripped], matchedKey: stripped };
+    }
   }
   return undefined;
 }
@@ -244,7 +246,7 @@ export function parseTitle(title: string): ParseResult {
         continue;
       }
     }
-    
+
     const dottedAudioTrackMatch = token.match(
       /^(FLAC|AAC)\.([0-9]\.[0-9])(?:-(.+))?$/i,
     );
