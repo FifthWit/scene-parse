@@ -122,7 +122,6 @@ export {
   getHandlersForField,
   registerHandler,
   removeHandler,
-  resetHandlers,
 } from "./registry/index.ts";
 export type { HandlerConfig, RegisteredHandler } from "./registry/types.ts";
 

@@ -59,33 +59,68 @@ const EXTENSION_MAP: Record<string, MediaType> = {
   m3u: "document",
 };
 
+/**
+ * Extracts the file extension of a given input filename
+ * @param filename 
+ * @returns the file's file extension
+ */
 export function getFileExtension(filename: string): string {
   const idx = filename.lastIndexOf(".");
   if (idx === -1 || idx === filename.length - 1) return "";
   return filename.slice(idx + 1).toLowerCase();
 }
 
+/**
+ * checks if a given filename matches with a specific type of file
+ * @param filename 
+ * @returns The {@link MediaType} of the input filename
+ */
 export function detectMediaType(filename: string): MediaType {
   const ext = getFileExtension(filename);
   return EXTENSION_MAP[ext] || "other";
 }
 
+/**
+ * checks if an input filename is a video file
+ * @param filename
+ * @returns true or false based on if it is or is not a video file
+ */
 export function isVideoFile(filename: string): boolean {
   return detectMediaType(filename) === "video";
 }
 
+/**
+ * checks if an input filename is an audio file
+ * @param filename
+ * @returns true or false based on if it is or is not an audio file
+ */
 export function isAudioFile(filename: string): boolean {
   return detectMediaType(filename) === "audio";
 }
 
+/**
+ * checks if an input filename is a subtitle file
+ * @param filename
+ * @returns true or false based on if it is or is not an subtitle file
+ */
 export function isSubtitleFile(filename: string): boolean {
   return detectMediaType(filename) === "subtitle";
 }
 
+/**
+ * checks if an input filename is an archive
+ * @param filename
+ * @returns true or false based on if it is or is not an archive file
+ */
 export function isArchiveFile(filename: string): boolean {
   return detectMediaType(filename) === "archive";
 }
 
+/**
+ * Checks if a file is a NFO file
+ * @param filename name of your file
+ * @returns true or false depending on if it is an NFO file
+ */
 export function isNFOFile(filename: string): boolean {
   const ext = getFileExtension(filename);
   return ext === "nfo";
@@ -93,6 +128,12 @@ export function isNFOFile(filename: string): boolean {
 
 const SIZE_UNITS = ["B", "KB", "MB", "GB", "TB", "PB"];
 
+/**
+ * Converts size of file in binary into a string like `20.2GB`
+ * @param bytes Size of file in bytes
+ * @param decimals Optional how many decimals of precision in the output string
+ * @returns output string like `123.45GB`
+ */
 export function formatFileSize(bytes: number, decimals = 2): string {
   if (bytes === 0) return "0 B";
   if (bytes < 0) throw new Error("File size cannot be negative");
@@ -111,6 +152,11 @@ export function formatFileSize(bytes: number, decimals = 2): string {
 
 const SIZE_REGEX = /^([\d,.]+)\s*(Gi?B|Mi?B|Ki?B|Ti?B|Pi?B|GB|MB|KB|TB|PB|B)$/i;
 
+/**
+ * Converts size like `1TB` to their size in bytes.
+ * @param sizeStr string defining their size, like `20Mb` or `827GiB`
+ * @returns the size of that input size as bytes, or undefined if none could be parseed
+ */
 export function parseFileSize(sizeStr: string): number | undefined {
   const match = sizeStr.trim().match(SIZE_REGEX);
   if (!match) return undefined;
@@ -154,6 +200,11 @@ export function parseFileSize(sizeStr: string): number | undefined {
   return Math.round(value * multiplier);
 }
 
+/**
+ * Function to convert seconds into a string like `1h 30m 15s` this can be reversed by using {@link parseDuration}
+ * @param seconds number of seconds
+ * @returns String defining the duration like `1h 30m 15s`
+ */
 export function formatDuration(seconds: number): string {
   if (seconds < 0) throw new Error("Duration cannot be negative");
   if (seconds === 0) return "0s";
@@ -181,6 +232,11 @@ const DURATION_REGEX_HMS =
   /^(?:(\d+)\s*h)?\s*(?:(\d+)\s*m(?:in)?)?\s*(?:(\d+)\s*s(?:ec)?)?$/i;
 const DURATION_REGEX_COLON = /^(?:(\d+):)?(\d+):(\d+)$/;
 
+/**
+ * Function for converting strings like `1h 30m 15s` to their duration in seconds. This can be reversed with {@link formatDuration}
+ * @param durationStr String like `1h 30m 15s`
+ * @returns the total number of seconds the durationStr represents, or undefined if it can not be found.
+ */
 export function parseDuration(durationStr: string): number | undefined {
   const trimmed = durationStr.trim();
   if (!trimmed) return undefined;

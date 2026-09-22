@@ -1,3 +1,4 @@
+/** Full map of all recognized sources by `scene-parser` */
 export const SOURCE_MAP = {
   NF: { shorthand: "NF", full: "Netflix" },
   AMZN: { shorthand: "AMZN", full: "Amazon Prime Video" },
@@ -51,7 +52,9 @@ export const SOURCE_MAP = {
   TNT: { shorthand: "TNT", full: "Turner Network Television" },
 } as const;
 
+/** Shorthand title for a source */
 export type ReleaseSource = keyof typeof SOURCE_MAP;
+/** Full info related to a source */
 export type SourceInfo = (typeof SOURCE_MAP)[ReleaseSource];
 
 const fullNameIndex: Map<string, (typeof SOURCE_MAP)[ReleaseSource]> =
@@ -60,18 +63,36 @@ for (const entry of Object.values(SOURCE_MAP)) {
   fullNameIndex.set(entry.full.toLowerCase(), entry);
 }
 
+/**
+ * turns shorthand source name into the full SourceInfo
+ * @param shorthand shorthand of source name like "ATVP" or "DSNP" as defined in {@link SOURCE_MAP}
+ * @returns Full source info of the shorthand, or undefined if there are no shorthands matching in the shorthand parameter
+ */
 export function getSourceInfo(shorthand: string): SourceInfo | undefined {
   return SOURCE_MAP[shorthand as ReleaseSource];
 }
 
+/**
+ * translates long source names to their shorthands as described in {@link SOURCE_MAP}
+ * @param fullName the full name of the source, ie "Apple TV+" or "Crunchyroll"
+ * @returns shorthand of the full name, like "ATVP" or "CR". If there are no full names that match the fullName paramater, it will return `undefined` 
+  */
 export function getSourceByFullName(fullName: string): SourceInfo | undefined {
   return fullNameIndex.get(fullName.toLowerCase());
 }
 
+/**
+ * lists all sources in {@link SOURCE_MAP}
+ * @returns array of all sources as described in {@link SOURCE_MAP}
+ */
 export function listSources(): SourceInfo[] {
   return Object.values(SOURCE_MAP);
 }
 
+/**
+ * lists all supported source's shorthand identifiers (ie "NF" or "DSNP")
+ * @returns array of all shorthands as described in {@link ReleaseSource}
+ */
 export function listSourceShorthands(): ReleaseSource[] {
   return Object.keys(SOURCE_MAP) as ReleaseSource[];
 }

@@ -1,3 +1,6 @@
+/**
+ * Base type for `NFOMovieInfo`, output by `parseNFO()`
+ */
 export type NFOMovieInfo = {
   title?: string;
   year?: number;
@@ -14,6 +17,9 @@ export type NFOMovieInfo = {
   releaseDate?: string;
 };
 
+/**
+ * Superset of NFOMovieInfo, with additions for `season`, `episode`, `episodeTitle`, and `seriesTitle`
+ */
 export type NFOShowInfo = NFOMovieInfo & {
   season?: number;
   episode?: number;
@@ -21,4 +27,7 @@ export type NFOShowInfo = NFOMovieInfo & {
   seriesTitle?: string;
 };
 
+/**
+ * Joint type for both NFO types `scene-parse` is made to read
+ */
 export type NFOInfo = NFOMovieInfo | NFOShowInfo;

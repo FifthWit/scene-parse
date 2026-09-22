@@ -7,7 +7,6 @@ import {
   getHandlersForField,
   registerHandler,
   removeHandler,
-  resetHandlers,
 } from "./index.ts";
 
 describe("Registry", () => {
@@ -185,15 +184,6 @@ describe("Registry", () => {
     expect(getHandlers().length).toBe(2);
 
     clearHandlers();
-    expect(getHandlers().length).toBe(0);
-  });
-
-  it("resetHandlers is an alias for clearHandlers", () => {
-    clearHandlers();
-    registerHandler({ field: "a", regex: /a/, type: "string" });
-    expect(getHandlers().length).toBe(1);
-
-    resetHandlers();
     expect(getHandlers().length).toBe(0);
   });
 

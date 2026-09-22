@@ -1,3 +1,4 @@
+/** Map of supported 16:9 resolutions by `scene-parser` */
 export const VIDEO_QUALITY_MAP = {
   "144p": { width: 256, height: 144, full: "256x144", aspectRatio: "16:9" },
   "360p": { width: 640, height: 360, full: "640x360", aspectRatio: "16:9" },
@@ -23,13 +24,24 @@ export const VIDEO_QUALITY_MAP = {
   },
 } as const;
 
+/** Shorthand string of a video's quality that maps onto {@link VIDEO_QUALITY_MAP} */
 export type VideoQuality = keyof typeof VIDEO_QUALITY_MAP;
+/** Quality information about a 16:9 video*/
 export type VideoQualityInfo = (typeof VIDEO_QUALITY_MAP)[VideoQuality];
 
+/**
+ * returns the full {@link VideoQualityInfo} from a {@link VideoQuality|shorthand} 
+ * @param label the {@link VideoQuality|shorthand} of a video quality
+ * @returns the corresponding {@link VideoQualityInfo} of the input {@link VideoQuality}
+ */
 export function getQualityInfo(label: string): VideoQualityInfo | undefined {
   return VIDEO_QUALITY_MAP[label as VideoQuality];
 }
 
+/**
+ * Lists all available 16:9 video qualities from `scene-parser`
+ * @returns an array of objects with a `label` attribute from {@link VideoQuality} and the {@link VideoQualityInfo} that corresponds to it
+ */
 export function listQualities(): Array<
   { label: VideoQuality } & VideoQualityInfo
 > {

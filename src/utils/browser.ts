@@ -6,6 +6,7 @@ import type {
 import type { AudioTrack, ReleaseInfo } from "../types/core.ts";
 import type { BrowserCodecEntry } from "../lib/browser-data.ts";
 import { BROWSER_CODEC_MATRIX } from "../lib/browser-data.ts";
+import type { CODEC_DEFS as _CODEC_DEFS } from "../lib/codecs.ts"
 
 let browserMatrix: BrowserCodecEntry[] = [...BROWSER_CODEC_MATRIX];
 
@@ -19,10 +20,21 @@ const UNKNOWN_AUDIO_TRACK: AudioTrack = {
   },
 };
 
+
+/**
+ * Returns the primary audio track's information based on a {@link ReleaseInfo}
+ * @param release The {@link ReleaseInfo} of a given release
+ * @returns The primary audio track's info as described here in {@link AudioTrack}
+ */
 function getPrimaryAudioTrack(release: ReleaseInfo): AudioTrack {
   return release.mediaInfo.audio.tracks[0] ?? UNKNOWN_AUDIO_TRACK;
 }
 
+/**
+ * Gets info based on a userAgent string
+ * @param userAgent the userAgent string of the user
+ * @returns The {@link BrowserInfo} Object, based on what the userAgent supports
+ */
 export function detectBrowserInfo(userAgent: string): BrowserInfo {
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
 
@@ -76,6 +88,11 @@ export function detectBrowserInfo(userAgent: string): BrowserInfo {
   return { name: "Unknown", version: 0, isMobile };
 }
 
+/**
+ * Returns all compatible codecs based on `userAgent` input
+ * @param userAgent the userAgent of a given user
+ * @returns The {@link CodecCompatibility} object
+ */
 export function getCompatibleCodecs(userAgent: string): CodecCompatibility {
   const info = detectBrowserInfo(userAgent);
   const entry = browserMatrix.find(
@@ -92,6 +109,13 @@ export function getCompatibleCodecs(userAgent: string): CodecCompatibility {
   };
 }
 
+/**
+ * Checks if a codec is compatible with a given user's `userAgent`
+ * @param codecName the name of the codec as defined in {@link _CODEC_DEFS|CODEC_DEFS}
+ * @param userAgent the `User-Agent` string of the user
+ * @param type whethre it is a video or audio codec to check support for
+ * @returns a true or false value depending on if the codec is supported
+ */
 export function isCodecCompatible(
   codecName: string,
   userAgent: string,
@@ -102,6 +126,12 @@ export function isCodecCompatible(
   return codecs[type].some((c) => c.toLowerCase() === lower);
 }
 
+/**
+ * Checks if a release is compatible with a given user's `userAgent`
+ * @param release the {@link ReleaseInfo} of a given release
+ * @param userAgent the `User-Agent` string of the user
+ * @returns a true or false value depending on if the release is supported
+ */
 export function isReleaseCompatible(
   release: ReleaseInfo,
   userAgent: string,
@@ -115,6 +145,13 @@ export function isReleaseCompatible(
   );
 }
 
+/**
+ * Checks prerferred codec policies, the releases to parse, and the assumed information about a browser based on the userAgent to return the best release based on the preferences and assumed behaviors
+ * @param releases Array of all release's {@link ReleaseInfo}
+ * @param userAgent the User-Agent string of a given user
+ * @param preferences Optional Preferences object using {@link BrowserCompatibilityPreferences}
+ * @returns The best release given the inputs, or null if the array was empty
+ */
 export function getBestCompatibleRelease(
   releases: ReleaseInfo[],
   userAgent: string,
@@ -185,6 +222,10 @@ export function getBestCompatibleRelease(
   return compatible[0];
 }
 
+/**
+ * Allows for redifining the browserMatrix object
+ * @param matrix based on {@link BROWSER_CODEC_MATRIX} to allow for redefining the supported codecs by given browsers
+ */
 export function setCustomBrowserMatrix(
   matrix: typeof BROWSER_CODEC_MATRIX,
 ): void {

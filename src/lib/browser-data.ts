@@ -1,3 +1,4 @@
+/** Type for defining a browser's supported a/v codecs and the minimum version the browser supports it */
 export type BrowserCodecEntry = {
   browser: string;
   minVersion: number;
@@ -5,6 +6,10 @@ export type BrowserCodecEntry = {
   audioCodecs: string[];
 };
 
+/** 
+ * Matrix containing major browser's supported codecs for video and audio
+ * @todo Improve Matrix, potentially just take compiled browser support specs from somewhere like MDN docs and input those. ALong with adding more versions
+ */
 export const BROWSER_CODEC_MATRIX: readonly BrowserCodecEntry[] = [
   {
     browser: "Chrome",

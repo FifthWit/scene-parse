@@ -163,7 +163,11 @@ function applyTextField(
       break;
   }
 }
-
+/**
+ * 
+ * @param text raw output from the `mediainfo` cli parsing a file
+ * @returns Object ({@link StructuredMediaInfo}) with `tracks` array with the parsed data, and `raw` string with the original raw text input
+ */
 export function parseMediaInfo(text: string): StructuredMediaInfo {
   if (!text.trim()) return { tracks: [], raw: text };
 

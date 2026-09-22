@@ -208,6 +208,11 @@ function parsePlainTextNFO(content: string): NFOInfo {
   return info as NFOInfo;
 }
 
+/**
+ * Turns NFO file content into parsed data
+ * @param content The raw text from an NFO file
+ * @returns The {@link NFOInfo} of your content
+ */
 export function parseNFO(content: string): NFOInfo {
   const trimmed = content.trim();
   if (!trimmed) return {};

@@ -14,6 +14,7 @@ function getPrimaryAudioTrack(release: ReleaseInfo): AudioTrack {
   return release.mediaInfo.audio.tracks[0] ?? UNKNOWN_AUDIO_TRACK;
 }
 
+/** Preferences for which releases to grade higher */
 export type ComparePreferences = {
   preferFOSS?: boolean;
   preferLossless?: boolean;
@@ -151,6 +152,13 @@ function cmp(a: number, b: number): number {
   return 0;
 }
 
+/**
+ * Compares two releases and returns the index of whichever is better
+ * @param a The {@link ReleaseInfo} 1
+ * @param b The {@link ReleaseInfo} 2
+ * @param preferences Optional {@link ComparePreferences|Preferences} for comparing releases
+ * @returns 
+ */
 export function compareReleases(
   a: ReleaseInfo,
   b: ReleaseInfo,
@@ -238,6 +246,12 @@ export function compareReleases(
   return 0;
 }
 
+/**
+ * Reorders Releases based on optional preferences, or hardcoded preferences
+ * @param releases Array of unordered {@link ReleaseInfo} objects
+ * @param preferences Optional {@link ComparePreferences|Preferences} for the comparing the releases
+ * @returns Reordered list of {@link ReleaseInfo}'s based on preferences
+ */
 export function rankReleases(
   releases: ReleaseInfo[],
   preferences?: ComparePreferences,
@@ -258,6 +272,11 @@ const RESOLUTION_SCORES: Record<number, number> = {
 const MAX_PIXELS = 3840 * 2160;
 const MIN_PIXELS = 256 * 144;
 
+/**
+ * Cacluates the score from an input resolution
+ * @param resolution Object with width and height as numbers
+ * @returns The corresponding score given to the resolution
+ */
 export function getResolutionScore(
   resolution: { width: number; height: number },
 ): number {
@@ -314,6 +333,12 @@ const EDITION_SCORES: Record<string, number> = {
   Theatrical: 0,
 };
 
+/**
+ * Scores a given ReleaseInfo's score based on our scores
+ * @param release
+ * @returns The total score calculated from your {@link ReleaseInfo}
+ * @todo ALLOW FOR CHANGING THESE
+ */
 export function getReleaseScore(release: ReleaseInfo): number {
   let score = 0;
 
