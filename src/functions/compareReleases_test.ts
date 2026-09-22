@@ -34,14 +34,18 @@ function makeMovie(
         HDR: "SDR",
       },
       audio: {
-        codec: {
-          name: "aac",
-          aliases: [],
-          codecType: "audio" as const,
-          foss: false,
-          lossy: true,
-        },
-        lang: undefined,
+        tracks: [
+          {
+            codec: {
+              name: "aac",
+              aliases: [],
+              codecType: "audio" as const,
+              foss: false,
+              lossy: true,
+            },
+            lang: undefined,
+          },
+        ],
       },
     },
     group: undefined,
@@ -69,14 +73,18 @@ function dv(): ReleaseInfoMovie {
         HDR: "DolbyVision",
       },
       audio: {
-        codec: {
-          name: "aac",
-          aliases: [],
-          codecType: "audio" as const,
-          foss: false,
-          lossy: true,
-        },
-        lang: undefined,
+        tracks: [
+          {
+            codec: {
+              name: "aac",
+              aliases: [],
+              codecType: "audio" as const,
+              foss: false,
+              lossy: true,
+            },
+            lang: undefined,
+          },
+        ],
       },
     },
   });
@@ -103,14 +111,18 @@ describe("compareReleases", () => {
           HDR: "SDR",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });
@@ -139,14 +151,18 @@ describe("compareReleases", () => {
           HDR: "HDR10",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });
@@ -175,14 +191,18 @@ describe("compareReleases", () => {
           HDR: "HDR10",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });
@@ -221,14 +241,18 @@ describe("compareReleases", () => {
           HDR: "SDR",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });
@@ -251,14 +275,18 @@ describe("compareReleases", () => {
           HDR: "SDR",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });
@@ -293,14 +321,18 @@ describe("rankReleases", () => {
           HDR: "DolbyVision",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });
@@ -325,14 +357,18 @@ describe("rankReleases", () => {
           HDR: "SDR",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });
@@ -371,14 +407,18 @@ describe("getReleaseScore", () => {
           HDR: "DolbyVision",
         },
         audio: {
-          codec: {
-            name: "aac",
-            aliases: [],
-            codecType: "audio" as const,
-            foss: false,
-            lossy: true,
-          },
-          lang: undefined,
+          tracks: [
+            {
+              codec: {
+                name: "aac",
+                aliases: [],
+                codecType: "audio" as const,
+                foss: false,
+                lossy: true,
+              },
+              lang: undefined,
+            },
+          ],
         },
       },
     });

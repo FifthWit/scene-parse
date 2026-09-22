@@ -62,7 +62,9 @@ export function formatTitle(
   const videoCodec = getCodecLabel(info.mediaInfo.video.codec);
   if (videoCodec) parts.push(videoCodec);
 
-  const audioCodec = getCodecLabel(info.mediaInfo.audio.codec);
+  const primaryTrack = info.mediaInfo.audio.tracks[0];
+
+  const audioCodec = primaryTrack ? getCodecLabel(primaryTrack.codec) : "";
   if (audioCodec) parts.push(audioCodec);
 
   if (info.mediaInfo.video.HDR !== "SDR") {
@@ -93,16 +95,16 @@ export function formatTitle(
     parts.push("INTERNAL");
   }
 
-  if (info.mediaInfo.audio.isAtmos) {
+  if (primaryTrack?.isAtmos) {
     parts.push("Atmos");
   }
 
-  if (info.mediaInfo.audio.isDual) {
-    parts.push("DUAL");
+  if (primaryTrack?.tag) {
+    parts.push(primaryTrack.tag);
   }
 
-  if (info.mediaInfo.audio.channels !== undefined) {
-    parts.push(info.mediaInfo.audio.channels + "ch");
+  if (primaryTrack?.channels !== undefined) {
+    parts.push(primaryTrack.channels + "ch");
   }
 
   if (includeGroup && info.group !== undefined) {

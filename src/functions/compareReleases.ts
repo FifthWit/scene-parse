@@ -1,4 +1,18 @@
-import type { ReleaseInfo } from "../types/core.ts";
+import type { AudioTrack, ReleaseInfo } from "../types/core.ts";
+
+const UNKNOWN_AUDIO_TRACK: AudioTrack = {
+  codec: {
+    name: "unknown",
+    aliases: [],
+    codecType: "audio",
+    foss: false,
+    lossy: true,
+  },
+};
+
+function getPrimaryAudioTrack(release: ReleaseInfo): AudioTrack {
+  return release.mediaInfo.audio.tracks[0] ?? UNKNOWN_AUDIO_TRACK;
+}
 
 export type ComparePreferences = {
   preferFOSS?: boolean;
@@ -170,21 +184,21 @@ export function compareReleases(
   );
   if (diff !== 0) return diff;
 
-  const audioCodecA = a.mediaInfo.audio.codec;
-  const audioCodecB = b.mediaInfo.audio.codec;
+  const audioTrackA = getPrimaryAudioTrack(a);
+  const audioTrackB = getPrimaryAudioTrack(b);
   diff = cmp(
     getAudioRank(
-      audioCodecA.lossy,
-      a.mediaInfo.audio.isAtmos,
-      a.mediaInfo.audio.channels,
-      audioCodecA.name,
+      audioTrackA.codec.lossy,
+      audioTrackA.isAtmos,
+      audioTrackA.channels,
+      audioTrackA.codec.name,
       preferences,
     ),
     getAudioRank(
-      audioCodecB.lossy,
-      b.mediaInfo.audio.isAtmos,
-      b.mediaInfo.audio.channels,
-      audioCodecB.name,
+      audioTrackB.codec.lossy,
+      audioTrackB.isAtmos,
+      audioTrackB.channels,
+      audioTrackB.codec.name,
       preferences,
     ),
   );
@@ -309,17 +323,17 @@ export function getReleaseScore(release: ReleaseInfo): number {
 
   score += SOURCE_SCORES[release.ripQuality ?? ""] ?? 0;
 
-  const audioCodec = release.mediaInfo.audio.codec;
+  const audioTrack = getPrimaryAudioTrack(release);
   let audioScore = 0;
-  if (!audioCodec.lossy) {
+  if (!audioTrack.codec.lossy) {
     audioScore += 7;
   }
-  if (release.mediaInfo.audio.isAtmos) {
+  if (audioTrack.isAtmos) {
     audioScore += 4;
   }
   audioScore += Math.min(
     4,
-    getAudioChannelsRank(release.mediaInfo.audio.channels),
+    getAudioChannelsRank(audioTrack.channels),
   );
   score += audioScore;
 

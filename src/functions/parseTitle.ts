@@ -6,6 +6,7 @@ import type {
 } from "../types/core.ts";
 import { applyHandlers } from "../registry/index.ts";
 import {
+  AUDIO_TRACK_PATTERN,
   CODEC_DEFS,
   COMPLETE_PATTERN,
   detectEdition,
@@ -63,6 +64,32 @@ function detectChannels(token: string): string | undefined {
   return undefined;
 }
 
+function peelTrailingGroup(
+  token: string,
+): { token: string; group?: string } {
+  if (!token.startsWith("-") && token.includes("-")) {
+    const lastDash = token.lastIndexOf("-");
+    const prefix = token.slice(0, lastDash);
+    const suffix = token.slice(lastDash + 1);
+    if (prefix.length > 0 && suffix.length > 0) {
+      return { token: prefix, group: suffix };
+    }
+  }
+  return { token };
+}
+
+function resolveCodecKey<T>(
+  key: string,
+  lookup: Record<string, T>,
+): { codec: T; matchedKey: string } | undefined {
+  if (key in lookup) return { codec: lookup[key], matchedKey: key };
+  if (key.includes(".")) {
+    const stripped = key.replace(/\./g, "");
+    if (stripped in lookup) return { codec: lookup[stripped], matchedKey: stripped };
+  }
+  return undefined;
+}
+
 function tryMatchCompoundCodec<T>(
   tokens: string[],
   start: number,
@@ -72,8 +99,6 @@ function tryMatchCompoundCodec<T>(
     const slice = [...tokens.slice(start, start + len)];
     let group: string | undefined;
 
-    // Peel a trailing "-GROUP" off the last token before joining, so
-    // "H" + "264-Kitsune" can still resolve to "h264" with group "Kitsune".
     const last = slice[slice.length - 1];
     const dashIdx = last.lastIndexOf("-");
     if (dashIdx > 0) {
@@ -159,7 +184,6 @@ export function parseTitle(title: string): ParseResult {
   while (i < tokens.length) {
     let token = tokens[i];
 
-
     if (
       group === undefined &&
       i === tokens.length - 1 &&
@@ -193,6 +217,49 @@ export function parseTitle(title: string): ParseResult {
       i += compoundAudio.consumed;
       titleEnded = true;
       continue;
+    }
+
+    const audioTrackMatch = token.match(AUDIO_TRACK_PATTERN);
+    if (audioTrackMatch) {
+      const codecKey = audioTrackMatch[1].toLowerCase();
+      if (codecKey in audioCodecMap) {
+        audioCodec = audioCodecMap[codecKey];
+        let consumed = 1;
+        const rawNext = tokens[i + 1];
+        if (rawNext !== undefined) {
+          const isLastToken = i + 1 === tokens.length - 1;
+          const peeled = isLastToken
+            ? peelTrailingGroup(rawNext)
+            : { token: rawNext };
+          if (/^[0-9]$/.test(peeled.token)) {
+            channels = `${audioTrackMatch[2]}.${peeled.token}`;
+            consumed = 2;
+            if (peeled.group !== undefined && group === undefined) {
+              group = peeled.group;
+            }
+          }
+        }
+        i += consumed;
+        titleEnded = true;
+        continue;
+      }
+    }
+    
+    const dottedAudioTrackMatch = token.match(
+      /^(FLAC|AAC)\.([0-9]\.[0-9])(?:-(.+))?$/i,
+    );
+    if (dottedAudioTrackMatch) {
+      const codecKey = dottedAudioTrackMatch[1].toLowerCase();
+      if (codecKey in audioCodecMap) {
+        audioCodec = audioCodecMap[codecKey];
+        channels = dottedAudioTrackMatch[2];
+        if (dottedAudioTrackMatch[3] !== undefined && group === undefined) {
+          group = dottedAudioTrackMatch[3];
+        }
+        titleEnded = true;
+        i++;
+        continue;
+      }
     }
 
     const seasonEpisodeSeriesMatch = token.match(
@@ -391,15 +458,17 @@ export function parseTitle(title: string): ParseResult {
     }
 
     const lowerToken = token.toLowerCase();
-    if (lowerToken in videoCodecMap) {
-      videoCodec = videoCodecMap[lowerToken];
-      isEncode = ENCODE_TAGS.has(lowerToken);
+    const videoMatch = resolveCodecKey(lowerToken, videoCodecMap);
+    if (videoMatch) {
+      videoCodec = videoMatch.codec;
+      isEncode = ENCODE_TAGS.has(videoMatch.matchedKey);
       titleEnded = true;
       i++;
       continue;
     }
-    if (lowerToken in audioCodecMap) {
-      audioCodec = audioCodecMap[lowerToken];
+    const audioMatch = resolveCodecKey(lowerToken, audioCodecMap);
+    if (audioMatch) {
+      audioCodec = audioMatch.codec;
       titleEnded = true;
       i++;
       continue;
@@ -410,16 +479,18 @@ export function parseTitle(title: string): ParseResult {
       const possibleCodec = token.substring(0, lastDash).toLowerCase();
       const possibleGroup = token.substring(lastDash + 1);
 
-      if (possibleCodec in videoCodecMap) {
-        videoCodec = videoCodecMap[possibleCodec];
-        isEncode = ENCODE_TAGS.has(possibleCodec);
+      const possibleVideoMatch = resolveCodecKey(possibleCodec, videoCodecMap);
+      if (possibleVideoMatch) {
+        videoCodec = possibleVideoMatch.codec;
+        isEncode = ENCODE_TAGS.has(possibleVideoMatch.matchedKey);
         group = possibleGroup;
         titleEnded = true;
         i++;
         continue;
       }
-      if (possibleCodec in audioCodecMap) {
-        audioCodec = audioCodecMap[possibleCodec];
+      const possibleAudioMatch = resolveCodecKey(possibleCodec, audioCodecMap);
+      if (possibleAudioMatch) {
+        audioCodec = possibleAudioMatch.codec;
         group = possibleGroup;
         titleEnded = true;
         i++;
@@ -483,17 +554,20 @@ export function parseTitle(title: string): ParseResult {
       ...(isEncode !== undefined ? { isEncode } : {}),
     },
     audio: {
-      codec: audioCodec ?? {
-        name: "unknown",
-        aliases: [],
-        codecType: "audio",
-        foss: false,
-        lossy: true,
-      },
-      lang: undefined,
-      ...(channels !== undefined ? { channels } : {}),
-      ...(isAtmos !== undefined ? { isAtmos } : {}),
-      ...(isDual !== undefined ? { isDual } : {}),
+      tracks: [
+        {
+          codec: audioCodec ?? {
+            name: "unknown",
+            aliases: [],
+            codecType: "audio",
+            foss: false,
+            lossy: true,
+          },
+          ...(channels !== undefined ? { channels } : {}),
+          ...(isAtmos !== undefined ? { isAtmos } : {}),
+          ...(isDual !== undefined ? { tag: "DUAL" } : {}),
+        },
+      ],
     },
   };
 

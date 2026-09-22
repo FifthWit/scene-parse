@@ -3,11 +3,25 @@ import type {
   BrowserInfo,
   CodecCompatibility,
 } from "../types/browser.ts";
-import type { ReleaseInfo } from "../types/core.ts";
+import type { AudioTrack, ReleaseInfo } from "../types/core.ts";
 import type { BrowserCodecEntry } from "../lib/browser-data.ts";
 import { BROWSER_CODEC_MATRIX } from "../lib/browser-data.ts";
 
 let browserMatrix: BrowserCodecEntry[] = [...BROWSER_CODEC_MATRIX];
+
+const UNKNOWN_AUDIO_TRACK: AudioTrack = {
+  codec: {
+    name: "unknown",
+    aliases: [],
+    codecType: "audio",
+    foss: false,
+    lossy: true,
+  },
+};
+
+function getPrimaryAudioTrack(release: ReleaseInfo): AudioTrack {
+  return release.mediaInfo.audio.tracks[0] ?? UNKNOWN_AUDIO_TRACK;
+}
 
 export function detectBrowserInfo(userAgent: string): BrowserInfo {
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
@@ -93,10 +107,11 @@ export function isReleaseCompatible(
   userAgent: string,
 ): boolean {
   const videoCodec = release.mediaInfo.video.codec.name;
-  const audioCodec = release.mediaInfo.audio.codec.name;
   return (
     isCodecCompatible(videoCodec, userAgent, "video") &&
-    isCodecCompatible(audioCodec, userAgent, "audio")
+    release.mediaInfo.audio.tracks.some((track) =>
+      isCodecCompatible(track.codec.name, userAgent, "audio")
+    )
   );
 }
 
@@ -130,12 +145,15 @@ export function getBestCompatibleRelease(
       }
     }
 
+    const aAudioCodec = getPrimaryAudioTrack(a).codec;
+    const bAudioCodec = getPrimaryAudioTrack(b).codec;
+
     if (preferences?.preferredAudioCodecs) {
       const aAudIdx = preferences.preferredAudioCodecs.indexOf(
-        a.mediaInfo.audio.codec.name,
+        aAudioCodec.name,
       );
       const bAudIdx = preferences.preferredAudioCodecs.indexOf(
-        b.mediaInfo.audio.codec.name,
+        bAudioCodec.name,
       );
       if (aAudIdx !== -1 && bAudIdx !== -1) {
         const audDiff = aAudIdx - bAudIdx;
@@ -148,19 +166,15 @@ export function getBestCompatibleRelease(
     }
 
     if (preferences?.preferFOSS) {
-      const aFoss = a.mediaInfo.video.codec.foss &&
-        a.mediaInfo.audio.codec.foss;
-      const bFoss = b.mediaInfo.video.codec.foss &&
-        b.mediaInfo.audio.codec.foss;
+      const aFoss = a.mediaInfo.video.codec.foss && aAudioCodec.foss;
+      const bFoss = b.mediaInfo.video.codec.foss && bAudioCodec.foss;
       if (aFoss && !bFoss) return -1;
       if (!aFoss && bFoss) return 1;
     }
 
     if (preferences?.preferLossless) {
-      const aLossless = !a.mediaInfo.video.codec.lossy &&
-        !a.mediaInfo.audio.codec.lossy;
-      const bLossless = !b.mediaInfo.video.codec.lossy &&
-        !b.mediaInfo.audio.codec.lossy;
+      const aLossless = !a.mediaInfo.video.codec.lossy && !aAudioCodec.lossy;
+      const bLossless = !b.mediaInfo.video.codec.lossy && !bAudioCodec.lossy;
       if (aLossless && !bLossless) return -1;
       if (!aLossless && bLossless) return 1;
     }

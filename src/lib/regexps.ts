@@ -20,6 +20,7 @@ export const DOLBY_ATMOS_PATTERN = /Atmos|TrueHD\.Atmos|DDP\.Atmos/i;
 export const SCENE_GROUP_PATTERN = /^-[A-Za-z0-9]+$/;
 export const PHYSICAL_MEDIA_PATTERN =
   /(\bDVD(?:Rip)?\b)|(\bB(?:lu)?Ray\b)|(\bBR(?:-DISK)?\b)|(B(?:R)?(?:D)?Rip)/i;
+export const AUDIO_TRACK_PATTERN = /^(FLAC|AAC)([0-9])$/i;
 
 export const EDITION_MAP = {
   Extended: /^(?:EXTENDED|EXT\.?)$/i,

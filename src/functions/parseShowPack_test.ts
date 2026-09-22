@@ -31,18 +31,22 @@ const tests: { input: string; expected: ShowPackInfo }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "eac3",
-            "aliases": [
-              "E-AC3",
-              "E-AC-3",
-              "DDP5.1",
-              "DDP",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "eac3",
+                "aliases": [
+                  "E-AC3",
+                  "E-AC-3",
+                  "DDP5.1",
+                  "DDP",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "NTb",
@@ -79,13 +83,17 @@ const tests: { input: string; expected: ShowPackInfo }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -126,13 +134,17 @@ const tests: { input: string; expected: ShowPackInfo }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -174,13 +186,17 @@ const tests: { input: string; expected: ShowPackInfo }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -213,13 +229,17 @@ const tests: { input: string; expected: ShowPackInfo }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -253,13 +273,17 @@ const tests: { input: string; expected: ShowPackInfo }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -297,13 +321,17 @@ const tests: { input: string; expected: ShowPackInfo }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",

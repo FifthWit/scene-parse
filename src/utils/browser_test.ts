@@ -40,8 +40,12 @@ function release1080(
         HDR: "SDR",
       },
       audio: {
-        codec: audioCodec ?? aac,
-        lang: undefined,
+        tracks: [
+          {
+            codec: audioCodec ?? aac,
+            lang: undefined,
+          },
+        ],
       },
     },
     group: undefined,
@@ -64,8 +68,12 @@ function release720(
         HDR: "SDR",
       },
       audio: {
-        codec: audioCodec ?? aac,
-        lang: undefined,
+        tracks: [
+          {
+            codec: audioCodec ?? aac,
+            lang: undefined,
+          },
+        ],
       },
     },
     group: undefined,
@@ -274,7 +282,7 @@ describe("getBestCompatibleRelease", () => {
     const result = getBestCompatibleRelease([rAac, rFlac], chromeUA, {
       preferredAudioCodecs: ["flac", "aac"],
     });
-    expect(result?.mediaInfo.audio.codec.name).toBe("flac");
+    expect(result?.mediaInfo.audio.tracks[0].codec.name).toBe("flac");
   });
 
   it("ranks by FOSS preference when preferFOSS is set", () => {
@@ -303,7 +311,7 @@ describe("getBestCompatibleRelease", () => {
     const result = getBestCompatibleRelease([rLossy, rLossless], chromeUA, {
       preferLossless: true,
     });
-    expect(result?.mediaInfo.audio.codec.name).toBe("wav");
+    expect(result?.mediaInfo.audio.tracks[0].codec.name).toBe("wav");
 
     setCustomBrowserMatrix(BROWSER_CODEC_MATRIX);
   });

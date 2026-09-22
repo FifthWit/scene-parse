@@ -31,16 +31,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "ViSUM",
@@ -79,16 +83,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "AMIABLE",
@@ -125,16 +133,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -174,16 +186,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "3DGroup",
@@ -221,16 +237,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "EVO",
@@ -267,13 +287,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "HEVC",
@@ -313,16 +337,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "EPSiLON",
@@ -362,16 +390,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -409,16 +441,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -456,13 +492,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -502,17 +542,21 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
-          "isAtmos": true,
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+              "isAtmos": true,
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -549,14 +593,18 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
-          "isDual": true,
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+              "tag": "DUAL",
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -595,13 +643,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -640,14 +692,18 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "aac",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
-          "channels": "2.0",
+          "tracks": [
+            {
+              "codec": {
+                "name": "aac",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+              "channels": "2.0",
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -684,13 +740,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": false,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "ripQuality": "Bluray",
@@ -729,16 +789,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -779,16 +843,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -827,13 +895,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -878,13 +950,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -931,13 +1007,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -979,13 +1059,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1028,13 +1112,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1073,13 +1161,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "HDR": "SDR",
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "year": 2020,
@@ -1115,13 +1207,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "HDR": "SDR",
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "season": 1,
@@ -1161,13 +1257,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "HDR": "SDR",
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "warnings": [
@@ -1206,13 +1306,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1254,13 +1358,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1298,13 +1406,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1347,13 +1459,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1393,16 +1509,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1442,13 +1562,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1489,16 +1613,20 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "ac3",
-            "aliases": [
-              "AC-3",
-              "DD5.1",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "ac3",
+                "aliases": [
+                  "AC-3",
+                  "DD5.1",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1536,18 +1664,22 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "eac3",
-            "aliases": [
-              "E-AC3",
-              "E-AC-3",
-              "DDP5.1",
-              "DDP",
-            ],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "eac3",
+                "aliases": [
+                  "E-AC3",
+                  "E-AC-3",
+                  "DDP5.1",
+                  "DDP",
+                ],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1585,13 +1717,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1633,13 +1769,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1682,13 +1822,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": false,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "season": 1,
@@ -1730,13 +1874,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": false,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "season": 1,
@@ -1778,13 +1926,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",
@@ -1828,13 +1980,17 @@ const parseTitleTests: { input: string; expected: ParseResult }[] = [
           "isEncode": true,
         },
         "audio": {
-          "codec": {
-            "name": "unknown",
-            "aliases": [],
-            "codecType": "audio",
-            "foss": false,
-            "lossy": true,
-          },
+          "tracks": [
+            {
+              "codec": {
+                "name": "unknown",
+                "aliases": [],
+                "codecType": "audio",
+                "foss": false,
+                "lossy": true,
+              },
+            },
+          ],
         },
       },
       "group": "GROUP",

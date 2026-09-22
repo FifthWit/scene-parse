@@ -43,6 +43,7 @@ export { BROWSER_CODEC_MATRIX } from "./browser-data.ts";
 export type { BrowserCodecEntry } from "./browser-data.ts";
 
 export {
+  AUDIO_TRACK_PATTERN,
   COMPLETE_PATTERN,
   detectEdition,
   DOLBY_ATMOS_PATTERN,

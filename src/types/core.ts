@@ -25,6 +25,14 @@ type MediaCodecInfo = {
   readonly lossy: boolean;
 };
 
+type AudioTrack = {
+  codec: MediaCodecInfo;
+  lang?: LanguageCode;
+  channels?: string;
+  isAtmos?: boolean;
+  tag?: string;
+};
+
 type MediaInfo = {
   video: {
     quality: MediaQualityInfo;
@@ -34,11 +42,7 @@ type MediaInfo = {
     isEncode?: boolean;
   };
   audio: {
-    codec: MediaCodecInfo;
-    lang?: LanguageCode;
-    channels?: string;
-    isAtmos?: boolean;
-    isDual?: boolean;
+    tracks: AudioTrack[];
   };
 };
 
@@ -114,6 +118,7 @@ type CompleteSeriesPack = ShowPackInfoBase & {
 type ShowPackInfo = SeasonPack | EpisodeRangePack | CompleteSeriesPack;
 
 export type {
+  AudioTrack,
   CompleteSeriesPack,
   EditionType,
   EpisodeRangePack,
